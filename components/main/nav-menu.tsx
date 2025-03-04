@@ -32,7 +32,7 @@ const navItems = [
 
 export function NavMenu() {
   return (
-    <NavigationMenu className="z-[5] w-full flex justify-between px-2 py-3">
+    <NavigationMenu className="z-[5] w-full flex justify-between px-4 py-3">
       <div className="flex items-center gap-2">
         <Link href="/">
           <span className="text-xl font-heading">TUTOR</span>
