@@ -1,6 +1,6 @@
 import Marquee from '@/components/ui/marquee'
-import ImageCard from './imageCard'
-import { courseList } from './courseList'
+import ImageCard from './image-card'
+import { courseList } from './course-list'
 
 
 export default function CoursesPage() {
@@ -10,7 +10,7 @@ export default function CoursesPage() {
   <main className="p-4 h-full">
     <div className="flex flex-row flex-wrap">
       {courseList.map((course) =>
-      <div className="p-[10px]">
+      <div key={course.caption} className="p-[10px]">
         <ImageCard
           caption={course.caption}
           imageUrl={course.imageUrl}
