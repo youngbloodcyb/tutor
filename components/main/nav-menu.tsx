@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -10,7 +8,8 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-
+import { getSession } from "@/lib/auth/server";
+import { SignOut } from "@/components/auth/signout";
 const navItems = [
   {
     title: "Dashboard",
@@ -30,7 +29,9 @@ const navItems = [
   },
 ];
 
-export function NavMenu() {
+export async function NavMenu() {
+  const session = await getSession();
+
   return (
     <NavigationMenu className="z-[5] w-full flex justify-between px-4 py-3">
       <div className="flex items-center gap-2">
@@ -52,8 +53,18 @@ export function NavMenu() {
         </NavigationMenuList>
       </div>
       <div className="flex items-center gap-2">
-        <Button>Login</Button>
-        <Button variant="neutral">Sign Up</Button>
+        {session ? (
+          <SignOut />
+        ) : (
+          <>
+            <Link href="/login">
+              <Button>Login</Button>
+            </Link>
+            <Link href="/signup">
+              <Button variant="neutral">Sign Up</Button>
+            </Link>
+          </>
+        )}
       </div>
     </NavigationMenu>
   );
