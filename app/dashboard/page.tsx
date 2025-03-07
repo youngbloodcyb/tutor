@@ -102,8 +102,8 @@ export default function Page() {
       <div className="grid grid-cols-4 gap-4 h-full">
         <div className="col-span-3 flex flex-col gap-4">
           <div className="grid grid-cols-3 gap-4">
-            {cards.map((card) => (
-              <Card className="w-full bg-bg">
+            {cards.map((card, index) => (
+              <Card key={index} className="w-full bg-bg">
                 <CardHeader>
                   <CardTitle>{card.title}</CardTitle>
                   <CardDescription>{card.description}</CardDescription>
@@ -135,8 +135,8 @@ export default function Page() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {invoices.map((invoice) => (
-                    <TableRow key={invoice.invoice} className="bg-bg">
+                  {invoices.map((invoice, index) => (
+                    <TableRow key={index} className="bg-bg">
                       <TableCell className="font-base">
                         {invoice.invoice}
                       </TableCell>
