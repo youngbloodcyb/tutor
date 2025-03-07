@@ -1,5 +1,4 @@
 import "dotenv/config";
-// @ts-ignore - wtf
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
