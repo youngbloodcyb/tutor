@@ -9,18 +9,18 @@ import {
 
 import DataTable from "@/components/ui/data-table"; 
 
-const tips = [
+const evaluations = [
   {
-    title: "Tip 1",
-    description: "Tip 1 description",
+    courseName: "Pre-algebra",
+    proficiency: 0.8,
   },
   {
-    title: "Tip 2",
-    description: "Tip 2 description",
+    courseName: "Graphing",
+    proficiency: 0.55,
   },
   {
-    title: "Tip 3",
-    description: "Tip 3 description",
+    courseName: "Solving equations",
+    proficiency: 0.67,
   },
 ];
 
@@ -44,22 +44,29 @@ export default function Page() {
         <div className="col-span-1 h-full">
           <Card className="w-full h-full bg-bg">
             <CardHeader>
-              <CardTitle>Tips</CardTitle>
+              <CardTitle>Evaluation</CardTitle>
               <CardDescription>
-                View your progress in the last 30 days
+                Recent evalution
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
-              <h3 className="text-2xl font-bold">100%</h3>
-              {tips.map((tip) => (
+              <div
+                className="flex flex-col gap-4 justify-between border-border border-2 p-4"
+              >
+                <div className="flex justify-between">
+                  <h4 className="text-lg font-bold">Topic</h4>
+                  <h4 className="text-lg">Proficiency</h4>
+                </div>
+              {evaluations.map((evaluation) => (
                 <div
-                  key={tip.title}
-                  className="border-border border-2 p-2 shadow-shadow"
+                  key={evaluation.courseName}
+                  className="border-border border-2 p-2 shadow-shadow flex justify-between"
                 >
-                  <h4 className="text-lg font-bold">{tip.title}</h4>
-                  <p className="text-sm">{tip.description}</p>
+                  <h4 className="text-lg font-bold">{evaluation.courseName}</h4>
+                  <h4 className="text-lg">{(evaluation.proficiency * 100).toFixed(0)}%</h4>
                 </div>
               ))}
+              </div>
             </CardContent>
           </Card>
         </div>

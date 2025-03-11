@@ -140,7 +140,7 @@ export default function DataTable() {
 
   return (
     <div className="w-full font-base text-mtext">
-      <div className="flex items-center py-4">
+      <div className="flex items-center">
         <DropdownMenu>
           <DropdownMenuContent align="end">
             {table
