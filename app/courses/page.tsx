@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/card";
 
 import DataTable from "@/components/ui/data-table"; 
+import { Button } from "@/components/ui/button";
+import { Plus, ArrowUpRight } from "lucide-react";
 
 const evaluations = [
   {
@@ -44,10 +46,20 @@ export default function Page() {
         <div className="col-span-1 h-full">
           <Card className="w-full h-full bg-bg">
             <CardHeader>
-              <CardTitle>Evaluation</CardTitle>
-              <CardDescription>
-                Recent evalution
-              </CardDescription>
+              <div className="flex justify-between">
+                <div>
+                  <CardTitle>Evaluation</CardTitle>
+                  <CardDescription>
+                    Recent evalution
+                  </CardDescription>
+                </div>
+                <div>
+                  <Button className="flex items-center gap-1">
+                    View All
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
               <div
