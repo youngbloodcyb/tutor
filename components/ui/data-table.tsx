@@ -37,6 +37,8 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+
+
 const data: Payment[] = [
   {
     id: "m5gr84i9",
@@ -70,12 +72,16 @@ const data: Payment[] = [
   },
 ]
 
+
+
 export type Payment = {
   id: string
   amount: number
   status: "pending" | "processing" | "success" | "failed"
   email: string
 }
+
+
 
 export const columns: ColumnDef<Payment>[] = [
   {
@@ -169,6 +175,8 @@ export const columns: ColumnDef<Payment>[] = [
   },
 ]
 
+
+
 export default function DataTableDemo() {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -200,20 +208,7 @@ export default function DataTableDemo() {
   return (
     <div className="w-full font-base text-mtext">
       <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="noShadow" className="ml-auto">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             {table
               .getAllColumns()
@@ -284,30 +279,6 @@ export default function DataTableDemo() {
             )}
           </TableBody>
         </Table>
-      </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="text-text flex-1 text-sm">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
-        <div className="space-x-2">
-          <Button
-            variant="noShadow"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="noShadow"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
-        </div>
       </div>
     </div>
   )
