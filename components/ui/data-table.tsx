@@ -105,12 +105,12 @@ export const columns: ColumnDef<Courses>[] = [
   {
     accessorKey: "length",
     header: "Length",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("length")}</div>,
+    cell: ({ row }) => <div className="lowercase text-center">{row.getValue("length")}</div>,
   },
 ]
 
 
-export default function DataTableDemo() {
+export default function DataTable() {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],

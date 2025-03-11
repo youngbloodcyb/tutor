@@ -7,71 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import DataTableDemo from "@/components/ui/data-table"; 
-
-
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
-
-const cards = [
-  {
-    title: "Active Courses",
-    description: "View all of your active courses",
-    amount: 10,
-  },
-  {
-    title: "Hours spent",
-    description: "View all of your hours spent",
-    amount: 20,
-  },
-  {
-    title: "Goals achieved",
-    description: "View all of your goals achieved",
-    amount: 30,
-  },
-];
+import DataTable from "@/components/ui/data-table"; 
 
 const tips = [
   {
@@ -101,7 +37,7 @@ export default function Page() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <DataTableDemo />
+              <DataTable />
             </CardContent>
           </Card>
         </div>
