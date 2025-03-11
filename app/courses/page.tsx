@@ -7,16 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import DataTableDemo from "@/components/ui/data-table"; 
+
 
 const invoices = [
   {
@@ -109,7 +101,7 @@ export default function Page() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              
+              <DataTableDemo />
             </CardContent>
           </Card>
         </div>
