@@ -84,28 +84,28 @@ export const columns: ColumnDef<Courses>[] = [
     accessorKey: "courseName",
     header: "Course Name",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("courseName")}</div>
+      <div className="capitalize text-left">{row.getValue("courseName")}</div>
     ),
   },
   {
     accessorKey: "type",
     header: "Type",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("type")}</div>,
+    cell: ({ row }) => <div className="text-left">{row.getValue("type")}</div>,
   },
   {
     accessorKey: "start",
-    header: "Start",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("start")}</div>,
+    header: () => <div className="border border-black inline-block px-1.5 py-0.5 rounded-full text-sm bg-gray-300 hover:bg-gray-400 active:bg-gray-500">Start</div>,
+    cell: ({ row }) => <div className="border border-black inline-block px-1.5 py-0.5 rounded-full text-sm bg-gray-300 hover:bg-gray-400 active:bg-gray-500">{row.getValue("start")}</div>,
   },
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("status")}</div>,
+    cell: ({ row }) => <div className="text-left">{row.getValue("status")}</div>,
   },
   {
     accessorKey: "length",
     header: "Length",
-    cell: ({ row }) => <div className="lowercase text-center">{row.getValue("length")}</div>,
+    cell: ({ row }) => <div className="text-left">{`${row.getValue("length")} hours`}</div>,
   },
 ]
 
