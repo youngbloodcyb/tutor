@@ -2,7 +2,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,6 +17,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+import { getSession } from "@/lib/auth/server";
+import { redirect } from "next/navigation";
 const invoices = [
   {
     invoice: "INV001",
@@ -96,7 +97,13 @@ const tips = [
   },
 ];
 
-export default function Page() {
+export default async function Page() {
+  const session = await getSession();
+
+  if (!session) {
+    redirect("/login");
+  }
+
   return (
     <main className="p-4 h-full">
       <div className="grid grid-cols-4 gap-4 h-full">
