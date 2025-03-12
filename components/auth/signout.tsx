@@ -1,19 +1,29 @@
 "use client";
 
-import { signOut } from "@/lib/auth/client";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { signOut } from "@/lib/auth/actions";
+import { useToast } from "@/lib/hooks/use-toast";
+import { useAction } from "next-safe-action/hooks";
 
 export function SignOut() {
-  const router = useRouter();
+  const { toast } = useToast();
+  const { execute, isExecuting } = useAction(signOut, {
+    onSuccess() {
+      toast({
+        title: "Success",
+        description: "You have been successfully signed out",
+      });
+    },
+    onError() {
+      toast({
+        title: "Error",
+        description: "Failed to sign out.",
+      });
+    },
+  });
   return (
-    <Button
-      onClick={() => {
-        signOut();
-        router.refresh();
-      }}
-    >
-      Log out
+    <Button disabled={isExecuting} onClick={() => execute()}>
+      Sign Out
     </Button>
   );
 }
