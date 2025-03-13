@@ -7,8 +7,10 @@ import { QuizConfig } from "@/components/admin/quiz-config";
 import { X } from "lucide-react";
 
 export function ConfigPanel() {
-  const { blocks, selectedBlockId, updateBlock, selectBlock } = useBlockStore();
-
+  const blocks = useBlockStore((state) => state.blocks);
+  const selectedBlockId = useBlockStore((state) => state.selectedBlockId);
+  const selectBlock = useBlockStore((state) => state.selectBlock);
+  const updateBlock = useBlockStore((state) => state.updateBlock);
   const selectedBlock = blocks.find((block) => block.id === selectedBlockId);
 
   if (!selectedBlock) return null;
@@ -16,9 +18,9 @@ export function ConfigPanel() {
   const renderConfig = () => {
     switch (selectedBlock.type) {
       case "tiptap":
-        return <TiptapConfig block={selectedBlock} updateBlock={updateBlock} />;
+        return <TiptapConfig block={selectedBlock} />;
       case "quiz":
-        return <QuizConfig block={selectedBlock} updateBlock={updateBlock} />;
+        return <QuizConfig block={selectedBlock} />;
       default:
         return <div>No configuration available</div>;
     }

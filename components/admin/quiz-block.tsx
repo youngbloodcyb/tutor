@@ -8,11 +8,11 @@ import { Grip } from "lucide-react";
 interface QuizBlockProps {
   block: any;
   isSelected: boolean;
-  onClick: () => void;
 }
 
-export function QuizBlock({ block, isSelected, onClick }: QuizBlockProps) {
-  const { updateBlock } = useBlockStore();
+export function QuizBlock({ block, isSelected }: QuizBlockProps) {
+  const updateBlock = useBlockStore((state) => state.updateBlock);
+  const selectBlock = useBlockStore((state) => state.selectBlock);
 
   const handleOptionSelect = (questionIndex: number, optionIndex: number) => {
     const updatedQuestions = [...block.questions];
@@ -32,7 +32,7 @@ export function QuizBlock({ block, isSelected, onClick }: QuizBlockProps) {
   };
 
   return (
-    <div onClick={onClick} className="relative">
+    <div onClick={() => selectBlock(block.id)} className="relative">
       <div className="flex items-center gap-1 mb-2 text-muted-foreground">
         <Grip className="h-4 w-4" />
         <span className="text-xs font-medium">Quiz Component</span>

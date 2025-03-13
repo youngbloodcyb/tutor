@@ -17,11 +17,11 @@ import {
 interface TiptapBlockProps {
   block: any;
   isSelected: boolean;
-  onClick: () => void;
 }
 
-export function TiptapBlock({ block, isSelected, onClick }: TiptapBlockProps) {
-  const { updateBlock } = useBlockStore();
+export function TiptapBlock({ block, isSelected }: TiptapBlockProps) {
+  const selectBlock = useBlockStore((state) => state.selectBlock);
+  const updateBlock = useBlockStore((state) => state.updateBlock);
 
   const editor = useEditor({
     extensions: [StarterKit],
@@ -45,13 +45,13 @@ export function TiptapBlock({ block, isSelected, onClick }: TiptapBlockProps) {
   }
 
   return (
-    <div onClick={onClick} className="relative">
+    <div onClick={() => selectBlock(block.id)} className="relative">
       <div className="flex items-center gap-1 mb-2 text-muted-foreground">
         <Grip className="h-4 w-4" />
-        <span className="text-xs font-medium">WYSIWYG Editor</span>
+        <span className="text-xs font-medium">{block.title}</span>
       </div>
 
-      {isSelected && (
+      {isSelected && block.showToolbar && (
         <div className="flex items-center gap-1 mb-2 bg-muted p-1 rounded-md">
           <Button
             variant="noShadow"

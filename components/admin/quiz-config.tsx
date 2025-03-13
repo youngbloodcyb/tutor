@@ -6,13 +6,14 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { PlusCircle, Trash2, Check, X } from "lucide-react";
+import { useBlockStore } from "@/lib/stores/block-store";
 
 interface QuizConfigProps {
   block: any;
-  updateBlock: (id: string, data: any) => void;
 }
 
-export function QuizConfig({ block, updateBlock }: QuizConfigProps) {
+export function QuizConfig({ block }: QuizConfigProps) {
+  const updateBlock = useBlockStore((state) => state.updateBlock);
   const [expandedQuestion, setExpandedQuestion] = useState<number | null>(null);
 
   const handleTitleChange = (value: string) => {

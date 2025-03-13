@@ -26,7 +26,7 @@ export function BlockMenu({ onClose }: BlockMenuProps) {
 
   return (
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-lg">
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
             <CardTitle>Add a Block</CardTitle>

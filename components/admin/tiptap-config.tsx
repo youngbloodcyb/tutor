@@ -3,14 +3,16 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Slider } from "@/components/ui/slider";
+// import { Slider } from "@/components/ui/slider";
+import { useBlockStore } from "@/lib/stores/block-store";
 
 interface TiptapConfigProps {
   block: any;
-  updateBlock: (id: string, data: any) => void;
 }
 
-export function TiptapConfig({ block, updateBlock }: TiptapConfigProps) {
+export function TiptapConfig({ block }: TiptapConfigProps) {
+  const updateBlock = useBlockStore((state) => state.updateBlock);
+
   const handleChange = (key: string, value: any) => {
     updateBlock(block.id, {
       ...block,
@@ -39,7 +41,7 @@ export function TiptapConfig({ block, updateBlock }: TiptapConfigProps) {
         />
       </div>
 
-      <div className="space-y-2">
+      {/* <div className="space-y-2">
         <div className="flex justify-between">
           <Label htmlFor="maxHeight">Max Height (px)</Label>
           <span className="text-sm text-muted-foreground">
@@ -54,7 +56,7 @@ export function TiptapConfig({ block, updateBlock }: TiptapConfigProps) {
           value={[block.maxHeight || 300]}
           onValueChange={(value) => handleChange("maxHeight", value[0])}
         />
-      </div>
+      </div> */}
 
       <div className="flex items-center justify-between">
         <Label htmlFor="allowImages">Allow Images</Label>

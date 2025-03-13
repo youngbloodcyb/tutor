@@ -11,14 +11,8 @@ import { PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function BlockEditor() {
-  const {
-    blocks,
-    addBlock,
-    moveBlock,
-    removeBlock,
-    selectBlock,
-    selectedBlockId,
-  } = useBlockStore();
+  const { blocks, addBlock, moveBlock, removeBlock, selectedBlockId } =
+    useBlockStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleDragEnd = (result: any) => {
@@ -32,21 +26,11 @@ export function BlockEditor() {
     switch (block.type) {
       case "tiptap":
         return (
-          <TiptapBlock
-            key={block.id}
-            block={block}
-            isSelected={isSelected}
-            onClick={() => selectBlock(block.id)}
-          />
+          <TiptapBlock key={block.id} block={block} isSelected={isSelected} />
         );
       case "quiz":
         return (
-          <QuizBlock
-            key={block.id}
-            block={block}
-            isSelected={isSelected}
-            onClick={() => selectBlock(block.id)}
-          />
+          <QuizBlock key={block.id} block={block} isSelected={isSelected} />
         );
       default:
         return null;
@@ -55,22 +39,9 @@ export function BlockEditor() {
 
   return (
     <div className="flex flex-col md:flex-row gap-6 relative">
-      <div className="w-full md:w-3/4 bg-background border rounded-lg p-4 min-h-[500px]">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Content Blocks</h2>
-          <Button
-            variant="noShadow"
-            size="sm"
-            onClick={() => setIsMenuOpen(true)}
-            className="flex items-center gap-1"
-          >
-            <PlusCircle className="h-4 w-4" />
-            Add Block
-          </Button>
-        </div>
-
+      <div className="w-full bg-background border p-4 min-h-[500px] border-dashed border-black rounded-none">
         {blocks.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-80 border-2 border-dashed rounded-lg p-6 text-center">
+          <div className="flex flex-col items-center justify-center h-80 border-2 p-6 text-center">
             <p className="text-muted-foreground mb-4">No blocks added yet</p>
             <Button
               variant="noShadow"
