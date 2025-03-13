@@ -6,7 +6,7 @@ import { useBlockStore } from "@/lib/stores/block-store";
 import { ConfigPanel } from "@/components/admin/config-panel";
 import { TiptapBlock } from "@/components/admin/tiptap-block";
 import { QuizBlock } from "@/components/admin/quiz-block";
-import { PlusCircle } from "lucide-react";
+import { Plus, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -54,106 +54,115 @@ export function BlockEditor() {
   };
 
   return (
-    <div className="md:flex-row gap-6 relative grid grid-cols-4">
-      <div className="w-full bg-background border p-4 h-full border-dashed border-black rounded-none col-span-3">
-        {blocks.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-80 border-2 p-6 text-center">
-            <p className="text-muted-foreground mb-4">No blocks added yet</p>
-            <Button
-              variant="noShadow"
-              onClick={() => setIsMenuOpen(true)}
-              className="flex items-center gap-1"
-            >
-              <PlusCircle className="h-4 w-4" />
-              Add Your First Block
-            </Button>
-          </div>
-        ) : (
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="blocks">
-              {(provided) => (
-                <div
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  className="space-y-4"
-                >
-                  {blocks.map((block, index) => (
-                    <Draggable
-                      key={block.id}
-                      draggableId={block.id}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          className={`border rounded-lg p-4 ${
-                            selectedBlockId === block.id
-                              ? "ring-2 ring-primary"
-                              : ""
-                          }`}
-                        >
-                          {renderBlock(block, index)}
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-        )}
+    <div className="relative space-y-4">
+      <div className="flex justify-between items-center gap-2">
+        <h1 className="text-2xl font-bold">Course Builder</h1>
+        <Button onClick={() => setIsMenuOpen(true)}>
+          Add Block
+          <Plus className="h-4 w-4" />
+        </Button>
       </div>
-
-      {selectedBlockId && <ConfigPanel />}
-      {isMenuOpen && (
-        <Dialog open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-          <DialogContent className="sm:max-w-lg">
-            <DialogHeader>
-              <DialogTitle>Add a Block</DialogTitle>
-              <DialogDescription>
-                Choose a block type to add to your content
-              </DialogDescription>
-            </DialogHeader>
-
-            <div className="grid gap-4 py-4">
+      <div className="grid grid-cols-4 gap-4">
+        <div className="w-full bg-background border p-4 h-full border-dashed border-black rounded-none col-span-3">
+          {blocks.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-80 border-2 p-6 text-center">
+              <p className="text-muted-foreground mb-4">No blocks added yet</p>
               <Button
-                variant="default"
-                className="flex justify-start items-center gap-3 h-20 p-4"
-                onClick={() => handleAddBlock("tiptap")}
+                variant="noShadow"
+                onClick={() => setIsMenuOpen(true)}
+                className="flex items-center gap-1"
               >
-                <div className="bg-primary/10 p-2 rounded-lg">
-                  <Type className="h-6 w-6 text-primary" />
-                </div>
-                <div className="text-left">
-                  <h3 className="font-medium">WYSIWYG Editor</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Rich text editor with formatting options
-                  </p>
-                </div>
-              </Button>
-
-              <Button
-                variant="default"
-                className="flex justify-start items-center gap-3 h-20 p-4"
-                onClick={() => handleAddBlock("quiz")}
-              >
-                <div className="bg-primary/10 p-2 rounded-lg">
-                  <ListChecks className="h-6 w-6 text-primary" />
-                </div>
-                <div className="text-left">
-                  <h3 className="font-medium">Quiz Component</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Create interactive quizzes with multiple choice questions
-                  </p>
-                </div>
+                <PlusCircle className="h-4 w-4" />
+                Add Your First Block
               </Button>
             </div>
-          </DialogContent>
-        </Dialog>
-      )}
+          ) : (
+            <DragDropContext onDragEnd={handleDragEnd}>
+              <Droppable droppableId="blocks">
+                {(provided) => (
+                  <div
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    className="space-y-4"
+                  >
+                    {blocks.map((block, index) => (
+                      <Draggable
+                        key={block.id}
+                        draggableId={block.id}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            className={`border rounded-lg p-4 ${
+                              selectedBlockId === block.id
+                                ? "ring-2 ring-primary"
+                                : ""
+                            }`}
+                          >
+                            {renderBlock(block, index)}
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          )}
+        </div>
+
+        {selectedBlockId && <ConfigPanel />}
+        {isMenuOpen && (
+          <Dialog open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+            <DialogContent className="sm:max-w-lg">
+              <DialogHeader>
+                <DialogTitle>Add a Block</DialogTitle>
+                <DialogDescription>
+                  Choose a block type to add to your content
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="grid gap-4 py-4">
+                <Button
+                  variant="default"
+                  className="flex justify-start items-center gap-3 h-20 p-4"
+                  onClick={() => handleAddBlock("tiptap")}
+                >
+                  <div className="bg-primary/10 p-2 rounded-lg">
+                    <Type className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="font-medium">WYSIWYG Editor</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Rich text editor with formatting options
+                    </p>
+                  </div>
+                </Button>
+
+                <Button
+                  variant="default"
+                  className="flex justify-start items-center gap-3 h-20 p-4"
+                  onClick={() => handleAddBlock("quiz")}
+                >
+                  <div className="bg-primary/10 p-2 rounded-lg">
+                    <ListChecks className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="font-medium">Quiz Component</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Create interactive quizzes with multiple choice questions
+                    </p>
+                  </div>
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
+      </div>
     </div>
   );
 }

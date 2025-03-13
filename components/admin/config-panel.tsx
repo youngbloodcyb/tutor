@@ -4,13 +4,13 @@ import { useBlockStore } from "@/lib/stores/block-store";
 import { Button } from "@/components/ui/button";
 import { TiptapConfig } from "@/components/admin/tiptap-config";
 import { QuizConfig } from "@/components/admin/quiz-config";
-import { X } from "lucide-react";
+import { Trash2, X } from "lucide-react";
 
 export function ConfigPanel() {
   const blocks = useBlockStore((state) => state.blocks);
   const selectedBlockId = useBlockStore((state) => state.selectedBlockId);
   const selectBlock = useBlockStore((state) => state.selectBlock);
-  const updateBlock = useBlockStore((state) => state.updateBlock);
+  const removeBlock = useBlockStore((state) => state.removeBlock);
   const selectedBlock = blocks.find((block) => block.id === selectedBlockId);
 
   if (!selectedBlock) return null;
@@ -34,13 +34,22 @@ export function ConfigPanel() {
             ? "Text Editor Settings"
             : "Quiz Settings"}
         </h3>
-        <Button
-          variant="noShadow"
-          size="icon"
-          onClick={() => selectBlock(null)}
-        >
-          <X className="h-4 w-4" />
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="noShadow"
+            size="icon"
+            onClick={() => removeBlock(selectedBlockId || "")}
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="noShadow"
+            size="icon"
+            onClick={() => selectBlock(null)}
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
 
       {renderConfig()}
