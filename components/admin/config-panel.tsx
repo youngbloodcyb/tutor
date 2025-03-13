@@ -27,7 +27,7 @@ export function ConfigPanel() {
   };
 
   return (
-    <div className="w-full bg-muted p-4 rounded-lg border animate-in slide-in-from-right col-span-1">
+    <div className="w-full bg-muted rounded-none animate-in slide-in-from-right col-span-1">
       <div className="flex justify-between items-center mb-4">
         <h3 className="font-semibold">
           {selectedBlock.type === "tiptap"

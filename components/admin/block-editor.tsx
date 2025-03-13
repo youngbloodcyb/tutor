@@ -55,7 +55,7 @@ export function BlockEditor() {
 
   return (
     <div className="md:flex-row gap-6 relative grid grid-cols-4">
-      <div className="w-full bg-background border p-4 min-h-[500px] border-dashed border-black rounded-none col-span-3">
+      <div className="w-full bg-background border p-4 h-full border-dashed border-black rounded-none col-span-3">
         {blocks.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-80 border-2 p-6 text-center">
             <p className="text-muted-foreground mb-4">No blocks added yet</p>
