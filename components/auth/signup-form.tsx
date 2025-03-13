@@ -26,6 +26,7 @@ import { useToast } from "@/lib/hooks/use-toast";
 import { useAction } from "next-safe-action/hooks";
 import { parseActionError } from "@/lib/data/safe";
 import { signUp } from "@/lib/auth/actions";
+import Link from "next/link";
 
 type values = z.infer<typeof formSchema>;
 
@@ -63,7 +64,7 @@ export function SignUpForm() {
       <CardHeader>
         <CardTitle>Sign up</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-4">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit((values) => execute(values))}
@@ -122,6 +123,12 @@ export function SignUpForm() {
             </Button>
           </form>
         </Form>
+        <p>
+          Already have an account?{" "}
+          <Link href="/login" className="underline">
+            Login
+          </Link>
+        </p>
       </CardContent>
     </Card>
   );
