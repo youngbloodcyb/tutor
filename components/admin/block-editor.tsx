@@ -3,17 +3,33 @@
 import { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useBlockStore } from "@/lib/stores/block-store";
-import { BlockMenu } from "@/components/admin/block-menu";
 import { ConfigPanel } from "@/components/admin/config-panel";
 import { TiptapBlock } from "@/components/admin/tiptap-block";
 import { QuizBlock } from "@/components/admin/quiz-block";
 import { PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Type, ListChecks } from "lucide-react";
 
 export function BlockEditor() {
-  const { blocks, addBlock, moveBlock, removeBlock, selectedBlockId } =
-    useBlockStore();
+  const blocks = useBlockStore((state) => state.blocks);
+  const addBlock = useBlockStore((state) => state.addBlock);
+  const moveBlock = useBlockStore((state) => state.moveBlock);
+  const removeBlock = useBlockStore((state) => state.removeBlock);
+  const selectedBlockId = useBlockStore((state) => state.selectedBlockId);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleAddBlock = (type: string) => {
+    addBlock(type);
+    setIsMenuOpen(false);
+  };
 
   const handleDragEnd = (result: any) => {
     if (!result.destination) return;
@@ -38,8 +54,8 @@ export function BlockEditor() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 relative">
-      <div className="w-full bg-background border p-4 min-h-[500px] border-dashed border-black rounded-none">
+    <div className="md:flex-row gap-6 relative grid grid-cols-4">
+      <div className="w-full bg-background border p-4 min-h-[500px] border-dashed border-black rounded-none col-span-3">
         {blocks.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-80 border-2 p-6 text-center">
             <p className="text-muted-foreground mb-4">No blocks added yet</p>
@@ -92,7 +108,52 @@ export function BlockEditor() {
       </div>
 
       {selectedBlockId && <ConfigPanel />}
-      {isMenuOpen && <BlockMenu onClose={() => setIsMenuOpen(false)} />}
+      {isMenuOpen && (
+        <Dialog open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+          <DialogContent className="sm:max-w-lg">
+            <DialogHeader>
+              <DialogTitle>Add a Block</DialogTitle>
+              <DialogDescription>
+                Choose a block type to add to your content
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="grid gap-4 py-4">
+              <Button
+                variant="default"
+                className="flex justify-start items-center gap-3 h-20 p-4"
+                onClick={() => handleAddBlock("tiptap")}
+              >
+                <div className="bg-primary/10 p-2 rounded-lg">
+                  <Type className="h-6 w-6 text-primary" />
+                </div>
+                <div className="text-left">
+                  <h3 className="font-medium">WYSIWYG Editor</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Rich text editor with formatting options
+                  </p>
+                </div>
+              </Button>
+
+              <Button
+                variant="default"
+                className="flex justify-start items-center gap-3 h-20 p-4"
+                onClick={() => handleAddBlock("quiz")}
+              >
+                <div className="bg-primary/10 p-2 rounded-lg">
+                  <ListChecks className="h-6 w-6 text-primary" />
+                </div>
+                <div className="text-left">
+                  <h3 className="font-medium">Quiz Component</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Create interactive quizzes with multiple choice questions
+                  </p>
+                </div>
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }
