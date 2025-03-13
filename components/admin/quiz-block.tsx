@@ -43,7 +43,7 @@ export function QuizBlock({ block, isSelected }: QuizBlockProps) {
 
         {block.questions &&
           block.questions.map((question: any, qIndex: number) => (
-            <div key={qIndex} className="space-y-3 border-b pb-4 last:border-0">
+            <div key={qIndex} className="space-y-3 pb-4">
               <h4 className="font-medium">
                 {question.text || `Question ${qIndex + 1}`}
               </h4>
@@ -80,7 +80,7 @@ export function QuizBlock({ block, isSelected }: QuizBlockProps) {
           ))}
 
         {(!block.questions || block.questions.length === 0) && (
-          <div className="text-muted-foreground text-center p-4 border border-dashed rounded-md">
+          <div className="text-muted-foreground text-center p-4 rounded-md">
             Configure this quiz in the settings panel
           </div>
         )}

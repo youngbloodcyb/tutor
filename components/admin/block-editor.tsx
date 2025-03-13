@@ -96,9 +96,9 @@ export function BlockEditor() {
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
-                            className={`border rounded-lg p-4 ${
+                            className={`border-dashed border-[#88aaee] border-2 rounded-none p-4 ${
                               selectedBlockId === block.id
-                                ? "ring-2 ring-primary"
+                                ? "ring-2 ring-green-500 border-none"
                                 : ""
                             }`}
                           >

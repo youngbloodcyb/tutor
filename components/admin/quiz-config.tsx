@@ -177,12 +177,13 @@ export function QuizConfig({ block }: QuizConfigProps) {
         <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
           {block.questions &&
             block.questions.map((question: any, qIndex: number) => (
-              <div key={qIndex} className="border rounded-md p-2">
-                <div className="flex justify-between items-center">
+              <div key={qIndex} className="border rounded-md">
+                <div className="flex justify-between items-center gap-2">
                   <Button
                     variant="noShadow"
-                    size="sm"
-                    className="text-left justify-start font-normal w-full overflow-hidden"
+                    className={`text-left justify-start font-normal w-full overflow-hidden ${
+                      expandedQuestion === qIndex ? "ring-2 ring-green-500" : ""
+                    }`}
                     onClick={() =>
                       setExpandedQuestion(
                         expandedQuestion === qIndex ? null : qIndex
@@ -203,7 +204,7 @@ export function QuizConfig({ block }: QuizConfigProps) {
                 </div>
 
                 {expandedQuestion === qIndex && (
-                  <div className="mt-2 space-y-3 pt-2 border-t">
+                  <div className="mt-2 space-y-3 pt-2">
                     <div className="space-y-1">
                       <Label htmlFor={`q${qIndex}-text`} className="text-xs">
                         Question Text
