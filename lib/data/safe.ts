@@ -39,6 +39,25 @@ export const authenticatedAction = actionClient.use(async ({ next }) => {
 });
 
 /**
+ * Creates an admin action
+ *
+ * Passes the userId and admin status to the next function
+ *
+ * @returns {Promise<void>} A promise that resolves when the action is executed.
+ * @throws {Error} If the user is not authenticated or the user ID is not available.
+ */
+export const adminAction = actionClient.use(async ({ next }) => {
+  const session = await getSession();
+  const userId = session?.user.id;
+
+  if (!session || !userId || session.user.role !== "admin") {
+    throw new Error("Not authorized");
+  }
+
+  return next({ ctx: { userId } });
+});
+
+/**
  * Parses the action error object and returns a formatted error message.
  *
  * @param error - The action error object.
