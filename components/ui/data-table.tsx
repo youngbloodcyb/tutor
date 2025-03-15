@@ -94,8 +94,8 @@ export const columns: ColumnDef<Courses>[] = [
   },
   {
     accessorKey: "start",
-    header: () => <div className="border border-black inline-block px-1.5 py-0.5 rounded-full text-sm bg-gray-300 hover:bg-gray-400 active:bg-gray-500">Start</div>,
-    cell: ({ row }) => <div className="border border-black inline-block px-1.5 py-0.5 rounded-full text-sm bg-gray-300 hover:bg-gray-400 active:bg-gray-500">{row.getValue("start")}</div>,
+    header: () => <div className="border border-black inline-block px-1.5 py-0.5 rounded-full text-sm bg-main">Start</div>,
+    cell: ({ row }) => <div className="border border-black inline-block px-1.5 py-0.5 rounded-full text-sm bg-main hover:bg-gray-400 active:bg-gray-500">{row.getValue("start")}</div>,
   },
   {
     accessorKey: "status",
@@ -163,14 +163,14 @@ export default function DataTable() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md">
-        <Table>
-          <TableHeader className="font-heading">
+      <div>
+        <Table className="bg-bg border-none [&_tr:first-child_td]:border-t-0 [&_tr:last-child_td]:border-b-0">
+          <TableHeader className="font-heading border-b-0">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="border-none">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="text-mtext bg-bg border-none">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -189,6 +189,7 @@ export default function DataTable() {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="bg-bg hover:bg-gray-300 active:bg-gray-400 border-none"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
