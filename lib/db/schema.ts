@@ -4,6 +4,8 @@ import {
   integer,
   timestamp,
   boolean,
+  jsonb,
+  uuid,
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
@@ -59,4 +61,26 @@ export const verification = pgTable("verification", {
   expiresAt: timestamp("expires_at").notNull(),
   createdAt: timestamp("created_at"),
   updatedAt: timestamp("updated_at"),
+});
+
+export const course = pgTable("course", {
+  id: uuid("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description"),
+  content: jsonb<any>("content"),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+  draft: boolean("draft").notNull().default(false),
+});
+
+export const progress = pgTable("progress", {
+  id: uuid("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  courseId: uuid("course_id")
+    .notNull()
+    .references(() => course.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
 });

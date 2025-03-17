@@ -15,6 +15,13 @@
       "when": 1741841242120,
       "tag": "0001_sturdy_turbo",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1742174024253,
+      "tag": "0002_tiny_deathstrike",
+      "breakpoints": true
     }
   ]
 }
