@@ -23,46 +23,16 @@ import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 const invoices = [
   {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
+    course: "Pre-algebra",
+    progress: 0.74,
   },
   {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
+    course: "Trigonometry",
+    progress: 0.89,
   },
   {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
+    course: "Geometry",
+    progress: 0.97,
   },
 ];
 
@@ -88,17 +58,17 @@ const evaluations = [
   {
     courseName: "Pre-algebra",
     proficiency: 0.8,
-    style: "w-10 h-10 rounded-full bg-green-600",
+    style: "w-9 h-9 rounded-full bg-green-600",
   },
   {
     courseName: "Graphing",
     proficiency: 0.55,
-    style: "w-10 h-10 rounded-full bg-orange-300"
+    style: "w-9 h-9 rounded-full bg-orange-300"
   },
   {
     courseName: "Solving equations",
     proficiency: 0.67,
-    style: "w-10 h-10 rounded-full bg-yellow-200",
+    style: "w-9 h-9 rounded-full bg-yellow-200",
   },
 ];
 
@@ -135,15 +105,10 @@ export default async function Page() {
             </CardHeader>
             <CardContent>
               <Table>
-                <TableCaption className="text-text">
-                  A list of your recent invoices.
-                </TableCaption>
                 <TableHeader>
                   <TableRow className="bg-bg">
-                    <TableHead className="w-[100px]">Invoice</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Method</TableHead>
-                    <TableHead className="text-right">Amount</TableHead>
+                  <TableHead className="w-full">Course</TableHead>
+                    <TableHead className="text-right">Progress</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>

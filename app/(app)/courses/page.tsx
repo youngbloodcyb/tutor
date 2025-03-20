@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import DataTable from "@/components/ui/data-table";
+import DataTable from "@/app/(app)/courses/data-table";
 import { Button } from "@/components/ui/button";
 import { Plus, ArrowUpRight } from "lucide-react";
 import { getSession } from "@/lib/auth/server";
@@ -16,17 +16,17 @@ const evaluations = [
   {
     courseName: "Pre-algebra",
     proficiency: 0.8,
-    style: "w-10 h-10 rounded-full bg-green-600",
+    style: "w-9 h-9 rounded-full bg-green-600",
   },
   {
     courseName: "Graphing",
     proficiency: 0.55,
-    style: "w-10 h-10 rounded-full bg-orange-300"
+    style: "w-9 h-9 rounded-full bg-orange-300"
   },
   {
     courseName: "Solving equations",
     proficiency: 0.67,
-    style: "w-10 h-10 rounded-full bg-yellow-200",
+    style: "w-9 h-9 rounded-full bg-yellow-200",
   },
 ];
 
