@@ -16,9 +16,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Plus, ArrowUpRight } from "lucide-react";
 
 import { getSession } from "@/lib/auth/server";
 import { redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
 const invoices = [
   {
     invoice: "INV001",
@@ -82,18 +84,21 @@ const cards = [
   },
 ];
 
-const tips = [
+const evaluations = [
   {
-    title: "Tip 1",
-    description: "Tip 1 description",
+    courseName: "Pre-algebra",
+    proficiency: 0.8,
+    style: "w-10 h-10 rounded-full bg-green-600",
   },
   {
-    title: "Tip 2",
-    description: "Tip 2 description",
+    courseName: "Graphing",
+    proficiency: 0.55,
+    style: "w-10 h-10 rounded-full bg-orange-300"
   },
   {
-    title: "Tip 3",
-    description: "Tip 3 description",
+    courseName: "Solving equations",
+    proficiency: 0.67,
+    style: "w-10 h-10 rounded-full bg-yellow-200",
   },
 ];
 
@@ -165,25 +170,43 @@ export default async function Page() {
             </CardContent>
           </Card>
         </div>
-        <div className="col-span-1 h-full">
+        <div className="col-span-1 h-full min-w-min">
           <Card className="w-full h-full bg-bg">
             <CardHeader>
-              <CardTitle>Tips</CardTitle>
-              <CardDescription>
-                View your progress in the last 30 days
-              </CardDescription>
+              <div className="flex justify-between">
+                <div>
+                  <CardTitle>Evaluation</CardTitle>
+                  <CardDescription>Recent evalution</CardDescription>
+                </div>
+                <div>
+                  <Button className="flex items-center gap-1">
+                    View All
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
-              <h3 className="text-2xl font-bold">100%</h3>
-              {tips.map((tip) => (
-                <div
-                  key={tip.title}
-                  className="border-border border-2 p-2 shadow-shadow"
-                >
-                  <h4 className="text-lg font-bold">{tip.title}</h4>
-                  <p className="text-sm">{tip.description}</p>
+              <div className="flex flex-col justify-between">
+                <div className="flex justify-between ml-3 mr-3">
+                  <h4 className="text-lg font-bold">Topic</h4>
+                  <h4 className="text-lg font-bold">Proficiency</h4>
                 </div>
-              ))}
+                {evaluations.map((evaluation) => (
+                  <div
+                    key={evaluation.courseName}
+                    className="border-border border-t p-4 flex justify-between"
+                  >
+                    <div className={evaluation.style}></div>
+                    <h4 className=" flex items-center text-md w-8/12">
+                      {evaluation.courseName}
+                    </h4>
+                    <h4 className="text-lg">
+                      {(evaluation.proficiency * 100).toFixed(0)}%
+                    </h4>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
         </div>
