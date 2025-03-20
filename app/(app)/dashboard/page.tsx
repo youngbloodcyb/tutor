@@ -21,17 +21,17 @@ import { Plus, ArrowUpRight } from "lucide-react";
 import { getSession } from "@/lib/auth/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
-const invoices = [
+const courses = [
   {
-    course: "Pre-algebra",
+    name: "Pre-algebra",
     progress: 0.74,
   },
   {
-    course: "Trigonometry",
+    name: "Trigonometry",
     progress: 0.89,
   },
   {
-    course: "Geometry",
+    name: "Geometry",
     progress: 0.97,
   },
 ];
@@ -107,30 +107,22 @@ export default async function Page() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-bg">
-                  <TableHead className="w-full">Course</TableHead>
+                  <TableHead colSpan={4}>Course</TableHead>
                     <TableHead className="text-right">Progress</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {invoices.map((invoice, index) => (
+                  {courses.map((course, index) => (
                     <TableRow key={index} className="bg-bg">
-                      <TableCell className="font-base">
-                        {invoice.invoice}
+                      <TableCell colSpan={4}>
+                        {course.name}
                       </TableCell>
-                      <TableCell>{invoice.paymentStatus}</TableCell>
-                      <TableCell>{invoice.paymentMethod}</TableCell>
-                      <TableCell className="text-right">
-                        {invoice.totalAmount}
+                      <TableCell className="flex justify-end mr-3">
+                        {(course.progress * 100).toFixed(0)}%
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
-                <TableFooter>
-                  <TableRow className="bg-bg">
-                    <TableCell colSpan={3}>Total</TableCell>
-                    <TableCell className="text-right">$2,500.00</TableCell>
-                  </TableRow>
-                </TableFooter>
               </Table>
             </CardContent>
           </Card>
@@ -163,7 +155,7 @@ export default async function Page() {
                     className="border-border border-t p-4 flex justify-between"
                   >
                     <div className={evaluation.style}></div>
-                    <h4 className=" flex items-center text-md w-8/12">
+                    <h4 className=" flex items-center text-md font-bold w-8/12">
                       {evaluation.courseName}
                     </h4>
                     <h4 className="text-lg">

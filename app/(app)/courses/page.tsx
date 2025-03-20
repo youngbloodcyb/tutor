@@ -79,7 +79,7 @@ export default async function Page() {
                     className="border-border border-t p-4 flex justify-between"
                   >
                     <div className={evaluation.style}></div>
-                    <h4 className=" flex items-center text-md w-8/12">
+                    <h4 className="flex items-center text-md font-bold w-8/12">
                       {evaluation.courseName}
                     </h4>
                     <h4 className="text-lg">
