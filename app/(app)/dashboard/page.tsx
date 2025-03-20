@@ -98,13 +98,20 @@ export default async function Page() {
           </div>
           <Card className="w-full h-full bg-bg">
             <CardHeader>
-              <CardTitle>Continue Learning</CardTitle>
-              <CardDescription>
-                Continue learning with the following courses
-              </CardDescription>
+              <div className="flex justify-between">
+                <div>
+                <CardTitle>Continue Learning</CardTitle>
+                  <CardDescription>
+                    Continue learning with the following courses
+                  </CardDescription>
+                </div>
+                  <Button>
+                    View All
+                  </Button>
+              </div>
             </CardHeader>
             <CardContent>
-              <Table>
+              <Table className="border-0">
                 <TableHeader>
                   <TableRow className="bg-bg">
                   <TableHead colSpan={4}>Course</TableHead>
@@ -117,7 +124,7 @@ export default async function Page() {
                       <TableCell colSpan={4}>
                         {course.name}
                       </TableCell>
-                      <TableCell className="flex justify-end mr-3">
+                      <TableCell className="flex justify-end mr-3 my-1">
                         {(course.progress * 100).toFixed(0)}%
                       </TableCell>
                     </TableRow>
