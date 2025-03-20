@@ -41,24 +41,24 @@ import {
 
 const data: Courses[] = [
   {
-    id: "graphing",
-    courseName: "Graphing",
+    id: "prealgebra",
+    courseName: "Pre-algebra",
     type: "Interactive",
     start: "Start",
     status: "In progress",
     length: 2,
   },
   {
-    id: "solving-equations",
-    courseName: "Solving Equations",
+    id: "trigonometry",
+    courseName: "Trigonometry",
     type: "Reading",
     start: "Start",
     status: "Not started",
     length: 1,
   },
   {
-    id: "order-of-operations",
-    courseName: "Order of Operations",
+    id: "geometry",
+    courseName: "Geometry",
     type: "Interactive",
     start: "Start",
     status: "Not started",

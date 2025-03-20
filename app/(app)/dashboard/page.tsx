@@ -17,10 +17,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Plus, ArrowUpRight } from "lucide-react";
-
 import { getSession } from "@/lib/auth/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import Link from 'next/link';
+
 const courses = [
   {
     name: "Pre-algebra",
@@ -105,9 +106,9 @@ export default async function Page() {
                     Continue learning with the following courses
                   </CardDescription>
                 </div>
-                  <Button>
-                    View All
-                  </Button>
+                  <Link href="/courses">
+                    <Button>View All</Button>
+                  </Link>
               </div>
             </CardHeader>
             <CardContent>
