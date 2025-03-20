@@ -95,7 +95,7 @@ export const columns: ColumnDef<Courses>[] = [
   {
     accessorKey: "start",
     header: () => <div>Start Course</div>,
-    cell: ({ row }) => <Button>{row.getValue("start")}</Button>,
+    cell: ({ row }) => <Button className="ml-2">{row.getValue("start")}</Button>,
   },
   {
     accessorKey: "status",
