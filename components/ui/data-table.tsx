@@ -94,8 +94,8 @@ export const columns: ColumnDef<Courses>[] = [
   },
   {
     accessorKey: "start",
-    header: () => <div className="border border-black inline-block px-1.5 py-0.5 rounded-full text-sm bg-main">Start</div>,
-    cell: ({ row }) => <div className="border border-black inline-block px-1.5 py-0.5 rounded-full text-sm bg-main hover:bg-gray-400 active:bg-gray-500">{row.getValue("start")}</div>,
+    header: () => <div>Start Course</div>,
+    cell: ({ row }) => <Button>{row.getValue("start")}</Button>,
   },
   {
     accessorKey: "status",
