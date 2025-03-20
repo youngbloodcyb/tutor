@@ -6,7 +6,7 @@ import { useBlockStore } from "@/lib/stores/block-store";
 import { ConfigPanel } from "@/components/admin/config-panel";
 import { TiptapBlock } from "@/components/admin/tiptap-block";
 import { QuizBlock } from "@/components/admin/quiz-block";
-import { Plus, PlusCircle } from "lucide-react";
+import { Plus, PlusCircle, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,6 +16,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Type, ListChecks } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 export function BlockEditor() {
   const blocks = useBlockStore((state) => state.blocks);
@@ -23,7 +24,9 @@ export function BlockEditor() {
   const moveBlock = useBlockStore((state) => state.moveBlock);
   const removeBlock = useBlockStore((state) => state.removeBlock);
   const selectedBlockId = useBlockStore((state) => state.selectedBlockId);
-
+  const courseName = useBlockStore((state) => state.courseName);
+  const setCourseName = useBlockStore((state) => state.setCourseName);
+  const getCourseInfo = useBlockStore((state) => state.getCourseInfo);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleAddBlock = (type: string) => {
@@ -56,11 +59,21 @@ export function BlockEditor() {
   return (
     <div className="relative space-y-4">
       <div className="flex justify-between items-center gap-2">
-        <h1 className="text-2xl font-bold">Course Builder</h1>
-        <Button onClick={() => setIsMenuOpen(true)}>
-          Add Block
-          <Plus className="h-4 w-4" />
-        </Button>
+        <Input
+          placeholder="Course Name"
+          value={courseName}
+          onChange={(e) => setCourseName(e.target.value)}
+          className="w-[300px]"
+        />
+        <div className="flex gap-2">
+          <Button onClick={() => console.log(getCourseInfo())} size="icon">
+            <Save className="h-4 w-4" />
+          </Button>
+          <Button onClick={() => setIsMenuOpen(true)}>
+            Add Block
+            <Plus className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
       <div className="grid grid-cols-4 gap-4">
         <div className="w-full bg-background border p-4 h-full border-dashed border-black rounded-none col-span-3">
