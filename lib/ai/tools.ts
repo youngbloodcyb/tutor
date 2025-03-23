@@ -12,6 +12,20 @@ export const weatherTool = createTool({
   },
 })
 
+export const fractionTool = createTool({
+  description: "Display, or explain the fraction for a number",
+  parameters: z.object({
+    numerator: z.number().describe("The numerator of the fraction"),
+    denominator: z.number().describe("The denominator of the fraction"),
+  }),
+  execute: async function ({ numerator, denominator }) {
+    console.log("numerator", numerator)
+    console.log("denominator", denominator)
+    return { initialNumerator: numerator, initialDenominator: denominator }
+  },
+})
+
 export const tools = {
   displayWeather: weatherTool,
+  displayFraction: fractionTool,
 }
