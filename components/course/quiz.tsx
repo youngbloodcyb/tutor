@@ -31,7 +31,7 @@ interface QuizData {
   questions: QuizQuestion[];
 }
 
-export default function Quiz({ quizData }: { quizData: QuizData }) {
+export function Quiz({ quizData }: { quizData: QuizData }) {
   const [selectedAnswers, setSelectedAnswers] = useState<{
     [key: number]: number;
   }>({});
@@ -70,7 +70,7 @@ export default function Quiz({ quizData }: { quizData: QuizData }) {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="min-w-[500px]">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-2xl">{quizData.title}</CardTitle>
         <Button
@@ -102,13 +102,13 @@ export default function Quiz({ quizData }: { quizData: QuizData }) {
               {question.options.map((option, oIndex) => (
                 <div
                   key={oIndex}
-                  className={`flex items-center space-x-2 rounded-md border p-3 ${
+                  className={`flex items-center space-x-2 rounded-md border-2 border-black p-3 ${
                     submitted && selectedAnswers[qIndex] === oIndex
                       ? option.correct
-                        ? "border-green-500 bg-green-50 dark:bg-green-950/20"
-                        : "border-red-500 bg-red-50 dark:bg-red-950/20"
+                        ? "border-green-500 bg-green-200"
+                        : "border-red-500 bg-red-200"
                       : submitted && option.correct
-                      ? "border-green-500 bg-green-50 dark:bg-green-950/20"
+                      ? "border-green-500 bg-green-200"
                       : ""
                   }`}
                 >
@@ -137,8 +137,8 @@ export default function Quiz({ quizData }: { quizData: QuizData }) {
               <div
                 className={`p-3 rounded-md ${
                   results[qIndex].correct
-                    ? "bg-green-50 text-green-700 dark:bg-green-950/20 dark:text-green-400"
-                    : "bg-red-50 text-red-700 dark:bg-red-950/20 dark:text-red-400"
+                    ? "bg-green-200 text-green-700 dark:text-green-400"
+                    : "bg-red-200 text-red-700 dark:text-red-400"
                 }`}
               >
                 {results[qIndex].correct
