@@ -17,8 +17,27 @@ import {
 } from "@/components/ui/dialog";
 import { Type, ListChecks } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useAction } from "next-safe-action/hooks";
+import { useToast } from "@/lib/hooks/use-toast";
+import { createCourse } from "@/lib/data/course";
 
 export function BlockEditor() {
+  const { toast } = useToast();
+  const { execute, isExecuting } = useAction(createCourse, {
+    onSuccess() {
+      toast({
+        title: "Success",
+        description: "Course created successfully",
+      });
+    },
+    onError({ error }) {
+      toast({
+        title: "Error",
+        description: "An error occurred while creating the course",
+      });
+    },
+  });
+
   const blocks = useBlockStore((state) => state.blocks);
   const addBlock = useBlockStore((state) => state.addBlock);
   const moveBlock = useBlockStore((state) => state.moveBlock);
@@ -66,7 +85,18 @@ export function BlockEditor() {
           className="w-[300px]"
         />
         <div className="flex gap-2">
-          <Button onClick={() => console.log(getCourseInfo())} size="icon">
+          <Button
+            disabled={isExecuting}
+            onClick={() => {
+              const courseInfo = getCourseInfo();
+              execute({
+                name: courseInfo.courseName,
+                id: courseInfo.courseId,
+                blocks: courseInfo.blocks,
+              });
+            }}
+            size="icon"
+          >
             <Save className="h-4 w-4" />
           </Button>
           <Button onClick={() => setIsMenuOpen(true)}>
