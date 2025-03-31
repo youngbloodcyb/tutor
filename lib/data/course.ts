@@ -7,6 +7,7 @@ import { adminAction } from "@/lib/data/safe";
 import { createCourseSchema } from "@/lib/data/validation";
 // import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth/server";
 
 export const createCourse = adminAction
   .schema(createCourseSchema)
@@ -23,3 +24,20 @@ export const createCourse = adminAction
 
     redirect(`/admin/courses/edit/${id}`);
   });
+
+export const getCourse = async (id: string) => {
+  const session = await getSession();
+  const userId = session?.user.id;
+
+  if (!userId) {
+    throw new Error("Not authenticated");
+  }
+
+  const firstCourse = await db
+    .select()
+    .from(course)
+    .where(eq(course.id, id))
+    .limit(1);
+
+  return firstCourse[0];
+};
