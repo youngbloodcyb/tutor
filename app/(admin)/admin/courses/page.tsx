@@ -6,14 +6,18 @@ export default async function Page() {
   const courses = await getAllCourses();
 
   return (
-    <main>
+    <main className="space-y-4">
       <h1 className="text-2xl font-bold">Courses</h1>
       <Link href="/admin/courses/create">
         <Button>Create Course</Button>
       </Link>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="flex flex-col gap-2">
         {courses.map((course) => (
-          <div key={course.id}>{course.name}</div>
+          <div key={course.id}>
+            <Link href={`/admin/courses/edit/${course.id}`}>
+              <Button>{course.name}</Button>
+            </Link>
+          </div>
         ))}
       </div>
     </main>
