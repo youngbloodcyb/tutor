@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useBlockStore } from "@/lib/stores/block-store";
 import { ConfigPanel } from "@/components/admin/config-panel";
@@ -47,6 +47,11 @@ export function BlockEditor() {
   const setCourseName = useBlockStore((state) => state.setCourseName);
   const getCourseInfo = useBlockStore((state) => state.getCourseInfo);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const resetStore = useBlockStore((state) => state.resetStore);
+
+  useEffect(() => {
+    resetStore();
+  }, [resetStore]);
 
   const handleAddBlock = (type: string) => {
     addBlock(type);
