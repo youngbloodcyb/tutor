@@ -25,6 +25,19 @@ export const createCourse = adminAction
     redirect(`/admin/courses/edit/${id}`);
   });
 
+export const getAllCourses = async () => {
+  const session = await getSession();
+  const userId = session?.user.id;
+
+  if (!userId) {
+    throw new Error("Not authenticated");
+  }
+
+  const allCourses = await db.select().from(course);
+
+  return allCourses;
+};
+
 export const getCourse = async (id: string) => {
   const session = await getSession();
   const userId = session?.user.id;
