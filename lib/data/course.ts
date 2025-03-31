@@ -4,8 +4,8 @@ import { db } from "@/lib/db";
 import { course } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { adminAction } from "@/lib/data/safe";
-import { createCourseSchema } from "@/lib/data/validation";
-// import { revalidatePath } from "next/cache";
+import { createCourseSchema, updateCourseSchema } from "@/lib/data/validation";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth/server";
 
@@ -41,3 +41,16 @@ export const getCourse = async (id: string) => {
 
   return firstCourse[0];
 };
+
+export const updateCourse = adminAction
+  .schema(updateCourseSchema)
+  .action(async ({ parsedInput }) => {
+    const { id, name, blocks } = parsedInput;
+
+    await db
+      .update(course)
+      .set({ name, content: blocks, updatedAt: new Date() })
+      .where(eq(course.id, id));
+
+    revalidatePath(`/admin/courses/edit/${id}`);
+  });
