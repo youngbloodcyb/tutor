@@ -2,7 +2,6 @@
 
 import { create } from "zustand";
 import { v4 as uuidv4 } from "uuid";
-import { nanoid } from "nanoid";
 
 interface Block {
   id: string;
@@ -27,11 +26,13 @@ interface BlockStore {
     blocks: Block[];
     courseName: string;
   };
+  initializeStore: (name: string, id: string, blocks: Block[]) => void;
+  resetStore: () => void;
 }
 
 export const useBlockStore = create<BlockStore>((set, get) => ({
   blocks: [],
-  courseId: nanoid(8),
+  courseId: uuidv4(),
   courseName: "Course Name",
   selectedBlockId: null,
 
@@ -99,4 +100,17 @@ export const useBlockStore = create<BlockStore>((set, get) => ({
     courseName: get().courseName,
   }),
   setCourseName: (name: string) => set({ courseName: name }),
+  initializeStore: (name, id, blocks) =>
+    set({
+      courseName: name,
+      courseId: id,
+      blocks: blocks,
+    }),
+  resetStore: () =>
+    set({
+      blocks: [],
+      courseId: uuidv4(),
+      courseName: "Course Name",
+      selectedBlockId: null,
+    }),
 }));

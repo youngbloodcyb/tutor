@@ -1,54 +1,52 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
+import { useState } from "react";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
 
 export function FractionVisualizer({
   initialNumerator = 1,
   initialDenominator = 4,
 }: {
-  initialNumerator?: number
-  initialDenominator?: number
+  initialNumerator?: number;
+  initialDenominator?: number;
 }) {
-  console.log("initialNumerator", initialNumerator)
-  console.log("initialDenominator", initialDenominator)
-  const [numerator, setNumerator] = useState(initialNumerator)
-  const [denominator, setDenominator] = useState(initialDenominator)
+  const [numerator, setNumerator] = useState(initialNumerator);
+  const [denominator, setDenominator] = useState(initialDenominator);
 
   const handleNumeratorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number.parseInt(e.target.value)
+    const value = Number.parseInt(e.target.value);
     if (!isNaN(value)) {
-      setNumerator(value)
+      setNumerator(value);
     }
-  }
+  };
 
   const handleDenominatorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number.parseInt(e.target.value)
+    const value = Number.parseInt(e.target.value);
     if (!isNaN(value) && value !== 0) {
-      setDenominator(value)
+      setDenominator(value);
     }
-  }
+  };
 
   const renderFractionBlocks = () => {
-    if (denominator <= 0) return null
+    if (denominator <= 0) return null;
 
-    const blocks = []
-    const totalBlocks = Math.abs(denominator)
+    const blocks = [];
+    const totalBlocks = Math.abs(denominator);
     const filledBlocks =
-      Math.abs(numerator) > totalBlocks ? totalBlocks : Math.abs(numerator)
+      Math.abs(numerator) > totalBlocks ? totalBlocks : Math.abs(numerator);
     const isNegative =
-      (numerator < 0 && denominator > 0) || (numerator > 0 && denominator < 0)
+      (numerator < 0 && denominator > 0) || (numerator > 0 && denominator < 0);
 
     for (let i = 0; i < totalBlocks; i++) {
       blocks.push(
@@ -58,44 +56,44 @@ export function FractionVisualizer({
             i < filledBlocks
               ? isNegative
                 ? "bg-destructive"
-                : "bg-primary"
-              : "bg-muted border border-border"
+                : "bg-black"
+              : "bg-muted border-border border-2"
           }`}
           style={{ width: `${100 / totalBlocks}%` }}
         />
-      )
+      );
     }
 
     return (
       <div className="flex h-16 w-full gap-1 overflow-hidden rounded-md">
         {blocks}
       </div>
-    )
-  }
+    );
+  };
 
   const gcd = (a: number, b: number): number => {
-    return b === 0 ? a : gcd(b, a % b)
-  }
+    return b === 0 ? a : gcd(b, a % b);
+  };
 
   const simplifyFraction = () => {
-    if (numerator === 0) return "0"
-    if (denominator === 0) return "Undefined"
+    if (numerator === 0) return "0";
+    if (denominator === 0) return "Undefined";
 
-    const divisor = gcd(Math.abs(numerator), Math.abs(denominator))
-    const simplifiedNumerator = Math.abs(numerator) / divisor
-    const simplifiedDenominator = Math.abs(denominator) / divisor
+    const divisor = gcd(Math.abs(numerator), Math.abs(denominator));
+    const simplifiedNumerator = Math.abs(numerator) / divisor;
+    const simplifiedDenominator = Math.abs(denominator) / divisor;
 
     const isNegative =
-      (numerator < 0 && denominator > 0) || (numerator > 0 && denominator < 0)
+      (numerator < 0 && denominator > 0) || (numerator > 0 && denominator < 0);
 
     if (simplifiedDenominator === 1) {
-      return `${isNegative ? "-" : ""}${simplifiedNumerator}`
+      return `${isNegative ? "-" : ""}${simplifiedNumerator}`;
     }
 
     return `${
       isNegative ? "-" : ""
-    }${simplifiedNumerator}/${simplifiedDenominator}`
-  }
+    }${simplifiedNumerator}/${simplifiedDenominator}`;
+  };
 
   return (
     <Card className="w-full max-w-md mx-auto">
@@ -158,5 +156,5 @@ export function FractionVisualizer({
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

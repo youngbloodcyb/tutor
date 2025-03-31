@@ -19,21 +19,29 @@ import { Type, ListChecks } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useAction } from "next-safe-action/hooks";
 import { useToast } from "@/lib/hooks/use-toast";
-import { createCourse } from "@/lib/data/course";
+import { updateCourse } from "@/lib/data/course";
 
-export function BlockEditor() {
+export function EditBlockEditor({
+  name,
+  id,
+  defaultBlocks,
+}: {
+  name: string;
+  id: string;
+  defaultBlocks: any[];
+}) {
   const { toast } = useToast();
-  const { execute, isExecuting } = useAction(createCourse, {
+  const { execute, isExecuting } = useAction(updateCourse, {
     onSuccess() {
       toast({
         title: "Success",
-        description: "Course created successfully",
+        description: "Course updated successfully",
       });
     },
     onError({ error }) {
       toast({
         title: "Error",
-        description: "An error occurred while creating the course",
+        description: "An error occurred while updating the course",
       });
     },
   });
@@ -47,11 +55,11 @@ export function BlockEditor() {
   const setCourseName = useBlockStore((state) => state.setCourseName);
   const getCourseInfo = useBlockStore((state) => state.getCourseInfo);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const resetStore = useBlockStore((state) => state.resetStore);
+  const initializeStore = useBlockStore((state) => state.initializeStore);
 
   useEffect(() => {
-    resetStore();
-  }, [resetStore]);
+    initializeStore(name, id, defaultBlocks);
+  }, [name, id, defaultBlocks, initializeStore]);
 
   const handleAddBlock = (type: string) => {
     addBlock(type);
