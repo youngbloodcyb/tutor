@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import DataTable from "@/components/ui/data-table";
+import DataTable from "@/app/(app)/courses/data-table";
 import { Button } from "@/components/ui/button";
 import { Plus, ArrowUpRight } from "lucide-react";
 import { getSession } from "@/lib/auth/server";
@@ -16,14 +16,17 @@ const evaluations = [
   {
     courseName: "Pre-algebra",
     proficiency: 0.8,
+    style: "w-9 h-9 rounded-full bg-green-600",
   },
   {
     courseName: "Graphing",
     proficiency: 0.55,
+    style: "w-9 h-9 rounded-full bg-orange-300"
   },
   {
     courseName: "Solving equations",
     proficiency: 0.67,
+    style: "w-9 h-9 rounded-full bg-yellow-200",
   },
 ];
 
@@ -48,7 +51,7 @@ export default async function Page() {
             </CardContent>
           </Card>
         </div>
-        <div className="col-span-1 h-full">
+        <div className="col-span-1 h-full min-w-min">
           <Card className="w-full h-full bg-bg">
             <CardHeader>
               <div className="flex justify-between">
@@ -65,17 +68,18 @@ export default async function Page() {
               </div>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
-              <div className="flex flex-col gap-4 justify-between border-border border-2 p-4">
-                <div className="flex justify-between">
+              <div className="flex flex-col justify-between">
+                <div className="flex justify-between ml-3 mr-3">
                   <h4 className="text-lg font-bold">Topic</h4>
-                  <h4 className="text-lg">Proficiency</h4>
+                  <h4 className="text-lg font-bold">Proficiency</h4>
                 </div>
                 {evaluations.map((evaluation) => (
                   <div
                     key={evaluation.courseName}
-                    className="border-border border-2 p-2 shadow-shadow flex justify-between"
+                    className="border-border border-t p-4 flex justify-between"
                   >
-                    <h4 className="text-lg font-bold">
+                    <div className={evaluation.style}></div>
+                    <h4 className="flex items-center text-md font-bold w-8/12">
                       {evaluation.courseName}
                     </h4>
                     <h4 className="text-lg">

@@ -16,51 +16,24 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
+import { Plus, ArrowUpRight } from "lucide-react";
 import { getSession } from "@/lib/auth/server";
 import { redirect } from "next/navigation";
-const invoices = [
+import { Button } from "@/components/ui/button";
+import Link from 'next/link';
+
+const courses = [
   {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
+    name: "Pre-algebra",
+    progress: 0.74,
   },
   {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
+    name: "Trigonometry",
+    progress: 0.89,
   },
   {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
+    name: "Geometry",
+    progress: 0.97,
   },
 ];
 
@@ -82,18 +55,21 @@ const cards = [
   },
 ];
 
-const tips = [
+const evaluations = [
   {
-    title: "Tip 1",
-    description: "Tip 1 description",
+    courseName: "Pre-algebra",
+    proficiency: 0.8,
+    style: "w-9 h-9 rounded-full bg-green-600",
   },
   {
-    title: "Tip 2",
-    description: "Tip 2 description",
+    courseName: "Graphing",
+    proficiency: 0.55,
+    style: "w-9 h-9 rounded-full bg-orange-300"
   },
   {
-    title: "Tip 3",
-    description: "Tip 3 description",
+    courseName: "Solving equations",
+    proficiency: 0.67,
+    style: "w-9 h-9 rounded-full bg-yellow-200",
   },
 ];
 
@@ -123,67 +99,79 @@ export default async function Page() {
           </div>
           <Card className="w-full h-full bg-bg">
             <CardHeader>
-              <CardTitle>Continue Learning</CardTitle>
-              <CardDescription>
-                Continue learning with the following courses
-              </CardDescription>
+              <div className="flex justify-between">
+                <div>
+                <CardTitle>Continue Learning</CardTitle>
+                  <CardDescription>
+                    Continue learning with the following courses
+                  </CardDescription>
+                </div>
+                  <Link href="/courses">
+                    <Button>View All</Button>
+                  </Link>
+              </div>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableCaption className="text-text">
-                  A list of your recent invoices.
-                </TableCaption>
+              <Table className="border-0">
                 <TableHeader>
                   <TableRow className="bg-bg">
-                    <TableHead className="w-[100px]">Invoice</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Method</TableHead>
-                    <TableHead className="text-right">Amount</TableHead>
+                  <TableHead colSpan={4}>Course</TableHead>
+                    <TableHead className="text-right">Progress</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {invoices.map((invoice, index) => (
+                  {courses.map((course, index) => (
                     <TableRow key={index} className="bg-bg">
-                      <TableCell className="font-base">
-                        {invoice.invoice}
+                      <TableCell colSpan={4}>
+                        {course.name}
                       </TableCell>
-                      <TableCell>{invoice.paymentStatus}</TableCell>
-                      <TableCell>{invoice.paymentMethod}</TableCell>
-                      <TableCell className="text-right">
-                        {invoice.totalAmount}
+                      <TableCell className="flex justify-end mr-3 my-1">
+                        {(course.progress * 100).toFixed(0)}%
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
-                <TableFooter>
-                  <TableRow className="bg-bg">
-                    <TableCell colSpan={3}>Total</TableCell>
-                    <TableCell className="text-right">$2,500.00</TableCell>
-                  </TableRow>
-                </TableFooter>
               </Table>
             </CardContent>
           </Card>
         </div>
-        <div className="col-span-1 h-full">
+        <div className="col-span-1 h-full min-w-min">
           <Card className="w-full h-full bg-bg">
             <CardHeader>
-              <CardTitle>Tips</CardTitle>
-              <CardDescription>
-                View your progress in the last 30 days
-              </CardDescription>
+              <div className="flex justify-between">
+                <div>
+                  <CardTitle>Evaluation</CardTitle>
+                  <CardDescription>Recent evalution</CardDescription>
+                </div>
+                <div>
+                  <Button className="flex items-center gap-1">
+                    View All
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
-              <h3 className="text-2xl font-bold">100%</h3>
-              {tips.map((tip) => (
-                <div
-                  key={tip.title}
-                  className="border-border border-2 p-2 shadow-shadow"
-                >
-                  <h4 className="text-lg font-bold">{tip.title}</h4>
-                  <p className="text-sm">{tip.description}</p>
+              <div className="flex flex-col justify-between">
+                <div className="flex justify-between ml-3 mr-3">
+                  <h4 className="text-lg font-bold">Topic</h4>
+                  <h4 className="text-lg font-bold">Proficiency</h4>
                 </div>
-              ))}
+                {evaluations.map((evaluation) => (
+                  <div
+                    key={evaluation.courseName}
+                    className="border-border border-t p-4 flex justify-between"
+                  >
+                    <div className={evaluation.style}></div>
+                    <h4 className=" flex items-center text-md font-bold w-8/12">
+                      {evaluation.courseName}
+                    </h4>
+                    <h4 className="text-lg">
+                      {(evaluation.proficiency * 100).toFixed(0)}%
+                    </h4>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
         </div>
