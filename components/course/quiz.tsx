@@ -102,7 +102,7 @@ export function Quiz({ quizData }: { quizData: QuizData }) {
               {question.options.map((option, oIndex) => (
                 <div
                   key={oIndex}
-                  className={`flex items-center space-x-2 rounded-md border-2 border-black p-3 ${
+                  className={`flex items-center space-x-2 border-2 border-black p-3 ${
                     submitted && selectedAnswers[qIndex] === oIndex
                       ? option.correct
                         ? "border-green-500 bg-green-200"
@@ -135,7 +135,7 @@ export function Quiz({ quizData }: { quizData: QuizData }) {
             </RadioGroup>
             {submitted && results[qIndex] && (
               <div
-                className={`p-3 rounded-md ${
+                className={`p-3 ${
                   results[qIndex].correct
                     ? "bg-green-200 text-green-700 dark:text-green-400"
                     : "bg-red-200 text-red-700 dark:text-red-400"
