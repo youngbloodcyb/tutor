@@ -1,3 +1,1 @@
 ai tutor
-
-hey jared
