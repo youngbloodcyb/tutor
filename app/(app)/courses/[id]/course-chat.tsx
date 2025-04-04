@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useCallback } from "react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SendHorizonal } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { useChatStore } from "@/lib/stores/chat-store";
 import { useChat } from "@ai-sdk/react";
+import { Textarea } from "@/components/ui/textarea";
 
 interface CourseChatProps {
   courseId: string;
@@ -16,10 +16,9 @@ export function CourseChat({ courseId }: CourseChatProps) {
   const { setChatHook } = useChatStore();
   const chat = useChat({ id: `course-${courseId}` });
 
-  // Memoize the chat hook setter
   const memoizedSetChatHook = useCallback(() => {
     setChatHook(chat);
-  }, [courseId, chat.id]); // Only depend on stable values
+  }, [courseId, chat.id]);
 
   useEffect(() => {
     memoizedSetChatHook();
@@ -54,11 +53,18 @@ export function CourseChat({ courseId }: CourseChatProps) {
         className="absolute bottom-0 left-0 w-full p-4"
       >
         <div className="flex gap-2 w-full">
-          <Input
+          <Textarea
             value={input}
             onChange={handleInputChange}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSubmit(e);
+              }
+            }}
             placeholder="Ask a question about this course..."
-            className="shadow-shadow"
+            className="shadow-shadow resize-none"
+            rows={1}
           />
           <Button type="submit" size="icon" className="px-4">
             <SendHorizonal />

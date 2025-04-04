@@ -47,7 +47,7 @@ const BlockWrapper = ({
   return (
     <div className="grid grid-cols-10 gap-4 w-full p-6 border-b border-black">
       <div className="col-span-9 border-black">{children}</div>
-      <AddToChatButton content={block.content || block} />
+      <AddToChatButton content={block.content || JSON.stringify(block)} />
     </div>
   );
 };
