@@ -14,7 +14,10 @@ interface CourseChatProps {
 
 export function CourseChat({ courseId }: CourseChatProps) {
   const { setChatHook } = useChatStore();
-  const chat = useChat({ id: `course-${courseId}` });
+  const chat = useChat({
+    id: `course-${courseId}`,
+    initialMessages: [],
+  });
 
   const memoizedSetChatHook = useCallback(() => {
     setChatHook(chat);
@@ -23,6 +26,14 @@ export function CourseChat({ courseId }: CourseChatProps) {
   useEffect(() => {
     memoizedSetChatHook();
   }, [memoizedSetChatHook]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem(`chat-${courseId}`);
+    if (saved) {
+      const savedMessages = JSON.parse(saved);
+      chat.setMessages(savedMessages);
+    }
+  }, [courseId]);
 
   const { messages, input, handleInputChange, handleSubmit } = chat;
 
