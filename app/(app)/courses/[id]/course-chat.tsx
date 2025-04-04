@@ -72,8 +72,8 @@ export function CourseChat({ courseId }: CourseChatProps) {
   };
 
   return (
-    <div className="w-full flex flex-col space-y-4 p-4">
-      <div className="flex justify-end mb-2">
+    <div className="w-full h-full flex flex-col">
+      <div className="flex justify-end p-4">
         <Button
           variant="noShadow"
           size="icon"
@@ -83,31 +83,30 @@ export function CourseChat({ courseId }: CourseChatProps) {
           <Trash2 className="h-4 w-4" />
         </Button>
       </div>
-      <div className="flex flex-col gap-4 w-full">
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`flex ${
-              message.role === "user" ? "justify-end" : "justify-start"
-            }`}
-          >
+      <div className="flex-1 overflow-y-auto px-4">
+        <div className="flex flex-col gap-4 w-full">
+          {messages.map((message) => (
             <div
-              className={`rounded-lg p-4 max-w-[26rem] ${
-                message.role === "user" ? "bg-white" : "bg-gray-100"
+              key={message.id}
+              className={`flex ${
+                message.role === "user" ? "justify-end" : "justify-start"
               }`}
             >
-              <div className="prose dark:prose-invert max-w-none">
-                <ReactMarkdown>{message.content}</ReactMarkdown>
+              <div
+                className={`rounded-lg p-4 max-w-[26rem] ${
+                  message.role === "user" ? "bg-white" : "bg-gray-100"
+                }`}
+              >
+                <div className="prose dark:prose-invert max-w-none">
+                  <ReactMarkdown>{message.content}</ReactMarkdown>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      <form
-        onSubmit={handleFormSubmit}
-        className="absolute bottom-0 left-0 w-full p-4"
-      >
+      <form onSubmit={handleFormSubmit} className="p-4 border-t">
         {pendingInputs.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-2">
             {pendingInputs.map((_, index) => (

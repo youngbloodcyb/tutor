@@ -8,9 +8,9 @@ export default async function Page({ params }: { params: { id: string } }) {
   const course = await getCourse(params.id);
 
   return (
-    <main className="p-4">
-      <div className="grid grid-cols-3 gap-4">
-        <div className="col-span-2 flex flex-col gap-4 items-start border-2 border-black">
+    <main className="p-4 h-[calc(100vh-theme(spacing.16))]">
+      <div className="grid grid-cols-3 gap-4 h-full">
+        <div className="col-span-2 flex flex-col gap-4 items-start border-2 border-black overflow-y-auto">
           {/* @ts-ignore */}
           {course?.content?.map((block: any) => {
             if (block.type === "tiptap") {
@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             }
           })}
         </div>
-        <div className="col-span-1 border-2 border-black relative">
+        <div className="col-span-1 border-2 border-black relative overflow-y-auto">
           <CourseChat courseId={params.id} />
         </div>
       </div>
