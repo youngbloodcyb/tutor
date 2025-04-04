@@ -13,28 +13,42 @@ interface CourseChatProps {
 }
 
 export function CourseChat({ courseId }: CourseChatProps) {
-  const { setChatHook, pendingInputs, removePending, clearPending } =
-    useChatStore();
+  const {
+    setChatHook,
+    pendingInputs,
+    removePending,
+    clearPending,
+    setMessagesForCourse,
+    messagesByCourse,
+  } = useChatStore();
+
+  // Initialize chat with stored messages
+  const storedMessages = messagesByCourse[courseId] || [];
+  console.log("Stored messages for course:", courseId, storedMessages);
+
   const chat = useChat({
     id: `course-${courseId}`,
-    initialMessages: [],
+    initialMessages: storedMessages,
   });
 
+  // Set chat hook for global access
   const memoizedSetChatHook = useCallback(() => {
     setChatHook(chat);
-  }, [courseId, chat.id]);
+  }, [courseId, chat.id, setChatHook]);
 
   useEffect(() => {
     memoizedSetChatHook();
   }, [memoizedSetChatHook]);
 
+  // Update store when messages change, but debounce it
   useEffect(() => {
-    const saved = localStorage.getItem(`chat-${courseId}`);
-    if (saved) {
-      const savedMessages = JSON.parse(saved);
-      chat.setMessages(savedMessages);
-    }
-  }, [courseId]);
+    const timeoutId = setTimeout(() => {
+      setMessagesForCourse(courseId, chat.messages);
+      console.log("Updated messages:", chat.messages);
+    }, 100); // Small delay to prevent multiple rapid updates
+
+    return () => clearTimeout(timeoutId);
+  }, [chat.messages, courseId, setMessagesForCourse]);
 
   const { messages, input, handleInputChange, handleSubmit } = chat;
 
