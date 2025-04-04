@@ -2,11 +2,12 @@
 
 import { useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { SendHorizonal, X } from "lucide-react";
+import { SendHorizonal, X, Paperclip } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { useChatStore } from "@/lib/stores/chat-store";
 import { useChat } from "@ai-sdk/react";
 import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
 
 interface CourseChatProps {
   courseId: string;
@@ -97,20 +98,16 @@ export function CourseChat({ courseId }: CourseChatProps) {
       >
         {pendingInputs.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-2">
-            {pendingInputs.map((text, index) => (
-              <div
+            {pendingInputs.map((_, index) => (
+              <Badge
                 key={index}
-                className="flex items-center gap-1 bg-gray-100 rounded-full px-3 py-1 text-sm"
+                className="inline-flex items-center gap-2 py-2"
               >
-                <span className="truncate max-w-[200px]">{text}</span>
-                <button
-                  type="button"
-                  onClick={() => removePending(index)}
-                  className="hover:text-red-500"
-                >
-                  <X className="h-3 w-3" />
+                <Paperclip className="h-4 w-4" />#{index + 1}
+                <button type="button" onClick={() => removePending(index)}>
+                  <X className="h-4 w-4" />
                 </button>
-              </div>
+              </Badge>
             ))}
           </div>
         )}
