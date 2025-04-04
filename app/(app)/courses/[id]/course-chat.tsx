@@ -1,19 +1,31 @@
 "use client";
 
-import { useChat } from "@ai-sdk/react";
+import { useEffect, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SendHorizonal } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import { useChatStore } from "@/lib/stores/chat-store";
+import { useChat } from "@ai-sdk/react";
 
 interface CourseChatProps {
   courseId: string;
 }
 
 export function CourseChat({ courseId }: CourseChatProps) {
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    id: `course-${courseId}`, // Unique chat identifier for this course
-  });
+  const { setChatHook } = useChatStore();
+  const chat = useChat({ id: `course-${courseId}` });
+
+  // Memoize the chat hook setter
+  const memoizedSetChatHook = useCallback(() => {
+    setChatHook(chat);
+  }, [courseId, chat.id]); // Only depend on stable values
+
+  useEffect(() => {
+    memoizedSetChatHook();
+  }, [memoizedSetChatHook]);
+
+  const { messages, input, handleInputChange, handleSubmit } = chat;
 
   return (
     <div className="w-full flex flex-col space-y-4 p-4">

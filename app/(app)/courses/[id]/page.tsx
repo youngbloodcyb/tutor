@@ -15,14 +15,14 @@ export default async function Page({ params }: { params: { id: string } }) {
           {course?.content?.map((block: any) => {
             if (block.type === "tiptap") {
               return (
-                <BlockWrapper key={block.id}>
+                <BlockWrapper key={block.id} block={block}>
                   <Text content={block.content} />
                 </BlockWrapper>
               );
             }
             if (block.type === "quiz") {
               return (
-                <BlockWrapper key={block.id}>
+                <BlockWrapper key={block.id} block={block}>
                   <Quiz quizData={block} />
                 </BlockWrapper>
               );
@@ -37,11 +37,17 @@ export default async function Page({ params }: { params: { id: string } }) {
   );
 }
 
-const BlockWrapper = ({ children }: { children: React.ReactNode }) => {
+const BlockWrapper = ({
+  children,
+  block,
+}: {
+  children: React.ReactNode;
+  block: any;
+}) => {
   return (
     <div className="grid grid-cols-10 gap-4 w-full p-6 border-b border-black">
       <div className="col-span-9 border-black">{children}</div>
-      <AddToChatButton />
+      <AddToChatButton content={block.content || block} />
     </div>
   );
 };
