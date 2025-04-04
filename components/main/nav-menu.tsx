@@ -20,8 +20,8 @@ const navItems = [
     href: "/courses",
   },
   {
-    title: "Chats",
-    href: "/chats",
+    title: "Chat",
+    href: "/chat",
   },
   {
     title: "Settings",
