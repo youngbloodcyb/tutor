@@ -12,7 +12,7 @@ export default function Page() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
 
   return (
-    <main className="p-20 w-full flex flex-col items-center justify-center space-y-4">
+    <div className="p-20 w-full flex flex-col items-center justify-center space-y-4">
       <h1 className="text-2xl font-bold">Chat</h1>
       <div className="flex flex-col gap-4 w-[600px]">
         {messages.map((message) => (
@@ -91,6 +91,6 @@ export default function Page() {
           </Button>
         </div>
       </form>
-    </main>
+    </div>
   );
 }

@@ -4,7 +4,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <NavMenu />
-      {children}
+      <main className="p-4 h-[calc(100vh-theme(spacing.16))]">{children}</main>
     </>
   );
 }
