@@ -57,17 +57,17 @@ const evaluations = [
   {
     courseName: "Pre-algebra",
     proficiency: 0.8,
-    style: "w-9 h-9 rounded-full bg-green-600",
+    style: "w-4 h-4 rounded-full bg-green-600",
   },
   {
     courseName: "Graphing",
     proficiency: 0.55,
-    style: "w-9 h-9 rounded-full bg-orange-300",
+    style: "w-4 h-4 rounded-full bg-orange-300",
   },
   {
     courseName: "Solving equations",
     proficiency: 0.67,
-    style: "w-9 h-9 rounded-full bg-yellow-200",
+    style: "w-4 h-4 rounded-full bg-yellow-200",
   },
 ];
 
@@ -155,9 +155,9 @@ export default async function Page() {
               {evaluations.map((evaluation) => (
                 <div
                   key={evaluation.courseName}
-                  className="border-border border-t p-4 flex justify-between"
+                  className="border-border border-t p-4 flex justify-between items-center gap-2"
                 >
-                  <div className={evaluation.style}></div>
+                  <div className={evaluation.style} />
                   <h4 className=" flex items-center text-md font-bold w-8/12">
                     {evaluation.courseName}
                   </h4>
