@@ -75,7 +75,6 @@ export function CourseChat({ courseId }: CourseChatProps) {
     <div className="w-full h-full flex flex-col">
       <div className="flex justify-end p-4">
         <Button
-          variant="noShadow"
           size="icon"
           onClick={handleClearChat}
           className="hover:text-destructive"
@@ -112,7 +111,7 @@ export function CourseChat({ courseId }: CourseChatProps) {
             {pendingInputs.map((_, index) => (
               <Badge
                 key={index}
-                className="inline-flex items-center gap-2 py-2"
+                className="inline-flex items-center gap-2 py-2 shadow-shadow"
               >
                 <Paperclip className="h-4 w-4" />#{index + 1}
                 <button type="button" onClick={() => removePending(index)}>
