@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Tutor App",
@@ -12,12 +11,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className="antialiased bg-bg  overflow-hidden">
-        {children}
-        <Toaster />
-      </body>
-    </html>
-  );
+  return <html lang="en">{children}</html>;
 }
