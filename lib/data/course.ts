@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db";
 import { course } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { adminAction } from "@/lib/data/safe";
 import { createCourseSchema, updateCourseSchema } from "@/lib/data/validation";
 import { revalidatePath } from "next/cache";
@@ -33,7 +33,7 @@ export async function getAllCourses() {
     throw new Error("Not authenticated");
   }
 
-  return await db.select().from(course).orderBy(course.createdAt);
+  return await db.select().from(course).orderBy(desc(course.createdAt));
 }
 
 export const getCourse = async (id: string) => {
