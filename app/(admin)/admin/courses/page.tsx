@@ -6,7 +6,7 @@ export default async function Page() {
   const courses = await getAllCourses();
 
   return (
-    <main className="space-y-4">
+    <div className="space-y-4">
       <h1 className="text-2xl font-bold">Courses</h1>
       <Link href="/admin/courses/create">
         <Button>Create Course</Button>
@@ -20,6 +20,6 @@ export default async function Page() {
           </div>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

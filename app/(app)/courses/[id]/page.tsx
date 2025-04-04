@@ -1,43 +1,51 @@
 import { getCourse } from "@/lib/data/course";
 import { Text } from "@/components/course/text";
 import { Quiz } from "@/components/course/quiz";
-import { Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { AddToChatButton } from "./add-to-chat-button";
+import { CourseChat } from "./course-chat";
+
 export default async function Page({ params }: { params: { id: string } }) {
   const course = await getCourse(params.id);
 
   return (
-    <main className="p-4">
-      <div className="flex flex-col gap-4 items-start w-2/3 border-2 border-black">
+    <div className="grid grid-cols-3 gap-4 h-full">
+      <div className="col-span-2 flex flex-col gap-4 items-start border-2 border-black overflow-y-auto">
         {/* @ts-ignore */}
         {course?.content?.map((block: any) => {
           if (block.type === "tiptap") {
             return (
-              <BlockWrapper>
+              <BlockWrapper key={block.id} block={block}>
                 <Text content={block.content} />
               </BlockWrapper>
             );
           }
           if (block.type === "quiz") {
             return (
-              <BlockWrapper>
+              <BlockWrapper key={block.id} block={block}>
                 <Quiz quizData={block} />
               </BlockWrapper>
             );
           }
         })}
       </div>
-    </main>
+      <div className="col-span-1 border-2 border-black relative overflow-y-auto">
+        <CourseChat courseId={params.id} />
+      </div>
+    </div>
   );
 }
 
-const BlockWrapper = ({ children }: { children: React.ReactNode }) => {
+const BlockWrapper = ({
+  children,
+  block,
+}: {
+  children: React.ReactNode;
+  block: any;
+}) => {
   return (
     <div className="grid grid-cols-10 gap-4 w-full p-6 border-b border-black">
       <div className="col-span-9 border-black">{children}</div>
-      <Button size="sm">
-        <Sparkles className="h-4 w-4" />
-      </Button>
+      <AddToChatButton content={block.content || JSON.stringify(block)} />
     </div>
   );
 };
