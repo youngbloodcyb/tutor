@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Plus, ArrowUpRight, Edit, BookText } from "lucide-react";
+import { ArrowUpRight, BookText } from "lucide-react";
 import { getSession } from "@/lib/auth/server";
 import { redirect } from "next/navigation";
 import { getAllCourses } from "@/lib/data/course";
@@ -49,7 +49,7 @@ export default async function Page() {
   const courses = await getAllCourses();
 
   return (
-    <div className="grid grid-cols-4 gap-4 h-full p-4 ">
+    <div className="grid grid-cols-4 gap-4 h-full">
       <div className="col-span-3 flex flex-col gap-4">
         <Card className="w-full h-full bg-bg">
           <CardHeader>

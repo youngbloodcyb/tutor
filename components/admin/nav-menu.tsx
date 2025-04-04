@@ -29,7 +29,7 @@ export async function NavMenu() {
   const session = await getSession();
 
   return (
-    <NavigationMenu className="z-[5] w-full flex justify-between px-4 py-3">
+    <NavigationMenu className="z-[5] w-full flex justify-between px-4 py-3 h-16">
       <div className="flex items-center gap-2">
         <Link href="/">
           <span className="text-xl font-heading">TUTOR</span>

@@ -16,7 +16,7 @@ export default async function Page() {
   }
 
   return (
-    <div className="grid grid-cols-4 gap-4 h-full p-4">
+    <div className="grid grid-cols-4 gap-4 h-full">
       <div className="col-span-1 h-full min-w-min">
         <Card className="w-full h-full bg-bg">
           <CardHeader className="leading-loose">
