@@ -2,7 +2,7 @@
 
 import { useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { SendHorizonal, X, Paperclip } from "lucide-react";
+import { SendHorizonal, X, Paperclip, Trash2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { useChatStore } from "@/lib/stores/chat-store";
 import { useChat } from "@ai-sdk/react";
@@ -21,11 +21,11 @@ export function CourseChat({ courseId }: CourseChatProps) {
     clearPending,
     setMessagesForCourse,
     messagesByCourse,
+    clearMessagesForCourse,
   } = useChatStore();
 
   // Initialize chat with stored messages
   const storedMessages = messagesByCourse[courseId] || [];
-  console.log("Stored messages for course:", courseId, storedMessages);
 
   const chat = useChat({
     id: `course-${courseId}`,
@@ -45,7 +45,6 @@ export function CourseChat({ courseId }: CourseChatProps) {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setMessagesForCourse(courseId, chat.messages);
-      console.log("Updated messages:", chat.messages);
     }, 100); // Small delay to prevent multiple rapid updates
 
     return () => clearTimeout(timeoutId);
@@ -60,8 +59,6 @@ export function CourseChat({ courseId }: CourseChatProps) {
         .filter((text) => text)
         .join("\n");
 
-      console.log("combinedInput", combinedInput);
-
       handleSubmit(e, {
         body: { combinedInput },
       });
@@ -69,8 +66,23 @@ export function CourseChat({ courseId }: CourseChatProps) {
     }
   };
 
+  const handleClearChat = () => {
+    clearMessagesForCourse(courseId);
+    chat.setMessages([]); // Clear the current chat
+  };
+
   return (
     <div className="w-full flex flex-col space-y-4 p-4">
+      <div className="flex justify-end mb-2">
+        <Button
+          variant="noShadow"
+          size="icon"
+          onClick={handleClearChat}
+          className="hover:text-destructive"
+        >
+          <Trash2 className="h-4 w-4" />
+        </Button>
+      </div>
       <div className="flex flex-col gap-4 w-full">
         {messages.map((message) => (
           <div

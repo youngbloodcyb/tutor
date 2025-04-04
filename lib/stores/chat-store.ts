@@ -14,6 +14,7 @@ interface ChatStore {
   clearPending: () => void;
   messagesByCourse: Record<string, any[]>;
   setMessagesForCourse: (courseId: string, messages: any[]) => void;
+  clearMessagesForCourse: (courseId: string) => void;
 }
 
 export const useChatStore = create<ChatStore>()(
@@ -51,6 +52,14 @@ export const useChatStore = create<ChatStore>()(
           messagesByCourse: {
             ...state.messagesByCourse,
             [courseId]: messages,
+          },
+        }));
+      },
+      clearMessagesForCourse: (courseId) => {
+        set((state) => ({
+          messagesByCourse: {
+            ...state.messagesByCourse,
+            [courseId]: [],
           },
         }));
       },
