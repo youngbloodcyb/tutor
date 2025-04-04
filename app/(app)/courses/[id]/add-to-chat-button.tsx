@@ -11,10 +11,10 @@ interface AddToChatButtonProps {
 export function AddToChatButton({
   content = "Help me understand this content",
 }: AddToChatButtonProps) {
-  const addToInput = useChatStore((state) => state.addToInput);
+  const addToPending = useChatStore((state) => state.addToPending);
 
   const handleClick = () => {
-    addToInput(content);
+    addToPending(content);
   };
 
   return (

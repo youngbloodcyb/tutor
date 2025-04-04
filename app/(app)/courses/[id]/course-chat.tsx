@@ -2,7 +2,7 @@
 
 import { useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { SendHorizonal } from "lucide-react";
+import { SendHorizonal, X } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { useChatStore } from "@/lib/stores/chat-store";
 import { useChat } from "@ai-sdk/react";
@@ -13,7 +13,8 @@ interface CourseChatProps {
 }
 
 export function CourseChat({ courseId }: CourseChatProps) {
-  const { setChatHook } = useChatStore();
+  const { setChatHook, pendingInputs, removePending, clearPending } =
+    useChatStore();
   const chat = useChat({
     id: `course-${courseId}`,
     initialMessages: [],
@@ -37,6 +38,22 @@ export function CourseChat({ courseId }: CourseChatProps) {
 
   const { messages, input, handleInputChange, handleSubmit } = chat;
 
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (input.trim() || pendingInputs.length > 0) {
+      const combinedInput = [...pendingInputs, input.trim()]
+        .filter((text) => text)
+        .join("\n");
+
+      console.log("combinedInput", combinedInput);
+
+      handleSubmit(e, {
+        body: { combinedInput },
+      });
+      clearPending();
+    }
+  };
+
   return (
     <div className="w-full flex flex-col space-y-4 p-4">
       <div className="flex flex-col gap-4 w-full">
@@ -59,10 +76,31 @@ export function CourseChat({ courseId }: CourseChatProps) {
           </div>
         ))}
       </div>
+
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleFormSubmit}
         className="absolute bottom-0 left-0 w-full p-4"
       >
+        {pendingInputs.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-2">
+            {pendingInputs.map((text, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-1 bg-gray-100 rounded-full px-3 py-1 text-sm"
+              >
+                <span className="truncate max-w-[200px]">{text}</span>
+                <button
+                  type="button"
+                  onClick={() => removePending(index)}
+                  className="hover:text-red-500"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="flex gap-2 w-full">
           <Textarea
             value={input}
@@ -70,7 +108,7 @@ export function CourseChat({ courseId }: CourseChatProps) {
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
-                handleSubmit(e);
+                handleFormSubmit(e);
               }
             }}
             placeholder="Ask a question about this course..."
