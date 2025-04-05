@@ -15,7 +15,7 @@ export default async function AdminLayout({
   }
 
   return (
-    <body className="antialiased bg-bg overflow-hidden">
+    <body className="antialiased bg-bg overflow-auto">
       <NavMenu />
       <main className="p-4 h-[calc(100vh-theme(spacing.16))]">{children}</main>
       <Toaster />
