@@ -2,13 +2,12 @@
 
 import { db } from "@/lib/db";
 import { course, progress } from "@/lib/db/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and, exists } from "drizzle-orm";
 import { adminAction } from "@/lib/data/safe";
 import { createCourseSchema, updateCourseSchema } from "@/lib/data/validation";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth/server";
-import { and, exists } from "drizzle-orm";
 
 export const createCourse = adminAction
   .schema(createCourseSchema)
