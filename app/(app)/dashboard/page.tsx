@@ -19,6 +19,7 @@ import { getSession } from "@/lib/auth/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { getCoursesWithProress } from "@/lib/data/course";
 
 const courses = [
   {
@@ -73,6 +74,7 @@ const evaluations = [
 
 export default async function Page() {
   const session = await getSession();
+  const courses = await getCoursesWithProress();
 
   if (!session) {
     redirect("/login");
@@ -121,7 +123,7 @@ export default async function Page() {
                   <TableRow key={index} className="bg-bg">
                     <TableCell colSpan={4}>{course.name}</TableCell>
                     <TableCell className="flex justify-end mr-3 my-1">
-                      {(course.progress * 100).toFixed(0)}%
+                      {course.hasProgress ? "Completed" : "Incomplete"}
                     </TableCell>
                   </TableRow>
                 ))}

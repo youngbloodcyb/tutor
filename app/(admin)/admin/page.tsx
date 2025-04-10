@@ -6,7 +6,9 @@ export default async function Page() {
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-bold">Admin</h1>
-      <Chart users={users} />
+      <div className="w-full md:w-2/3 lg:w-1/2">
+        <Chart users={users} />
+      </div>
     </div>
   );
 }
