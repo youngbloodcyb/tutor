@@ -6,6 +6,8 @@ import {
   boolean,
   jsonb,
   uuid,
+  vector,
+  index,
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
@@ -96,3 +98,28 @@ export const goal = pgTable("goal", {
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
 });
+
+export const resource = pgTable("resource", {
+  id: uuid("id").primaryKey(),
+  link: text("link").notNull(),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});
+
+export const embeddings = pgTable(
+  "embeddings",
+  {
+    id: uuid("id").primaryKey(),
+    resourceId: uuid("resource_id")
+      .notNull()
+      .references(() => resource.id, { onDelete: "cascade" }),
+    content: text("content").notNull(),
+    embedding: vector("embedding", { dimensions: 1536 }).notNull(),
+  },
+  (table) => ({
+    embeddingIndex: index("embeddingIndex").using(
+      "hnsw",
+      table.embedding.op("vector_cosine_ops")
+    ),
+  })
+);
