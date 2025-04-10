@@ -3,6 +3,7 @@ import { Text } from "@/components/course/text";
 import { Quiz } from "@/components/course/quiz";
 import { AddToChatButton } from "./add-to-chat-button";
 import { CourseChat } from "./course-chat";
+import { CompleteForm } from "./complete-form";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const course = await getCourse(params.id);
@@ -27,6 +28,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             );
           }
         })}
+        <CompleteForm />
       </div>
       <div className="col-span-1 border-2 border-black relative overflow-y-auto">
         <CourseChat courseId={params.id} />

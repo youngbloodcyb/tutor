@@ -22,3 +22,7 @@ export const updateCourseSchema = z.object({
   name: z.string().min(1),
   blocks: z.array(z.any()),
 });
+
+export const completeCourseSchema = z.object({
+  courseId: z.string(),
+});
