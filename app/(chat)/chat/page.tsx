@@ -20,7 +20,7 @@ import { useAction } from "next-safe-action/hooks";
 import { toast } from "@/lib/hooks/use-toast";
 
 export default function Page() {
-  const { execute, status } = useAction(createResource, {
+  const { execute, isExecuting } = useAction(createResource, {
     onSuccess: () => {
       setIsUploading(false);
       toast({
@@ -37,6 +37,17 @@ export default function Page() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
   const [isUploading, setIsUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleUpload = async () => {
+    if (!selectedFile) return;
+
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    formData.append("content", input);
+
+    setIsUploading(true);
+    execute(formData);
+  };
 
   return (
     <div className="p-20 w-full flex flex-col items-center justify-center space-y-4">
@@ -166,13 +177,7 @@ export default function Page() {
                       </p>
                     )}
                     <Button
-                      onClick={() => {
-                        if (!selectedFile) return;
-                        execute({
-                          file: selectedFile,
-                          content: input,
-                        });
-                      }}
+                      onClick={handleUpload}
                       disabled={!selectedFile || isUploading}
                     >
                       {isUploading ? "Uploading..." : "Upload"}

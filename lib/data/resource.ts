@@ -8,46 +8,55 @@ import { generateEmbeddings } from "../ai/embedding";
 import { put } from "@vercel/blob";
 import { z } from "zod";
 
-const createResourceSchema = z.object({
-  file: z.instanceof(File),
-  content: z.string(),
-});
+const createResourceSchema = z.instanceof(FormData);
 
 export const createResource = authenticatedAction
   .schema(createResourceSchema)
-  .action(async ({ parsedInput }) => {
-    const { file, content } = parsedInput;
+  .action(async ({ parsedInput: formData }) => {
+    const file = formData.get("file") as File;
+    const content = formData.get("content") as string;
 
-    // Upload file to Vercel Blob
-    const blob = await put(file.name, file, {
-      access: "public",
-      addRandomSuffix: true,
-      contentType: file.type,
-    });
+    try {
+      // Upload file to Vercel Blob
+      const blob = await put(file.name, file, {
+        access: "public",
+        addRandomSuffix: true,
+        contentType: file.type,
+      });
 
-    // Create resource in database
-    const [resource] = await db
-      .insert(resourceTable)
-      .values({
-        id: crypto.randomUUID(),
-        link: blob.url,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      })
-      .returning();
+      // Create resource in database
+      const [resource] = await db
+        .insert(resourceTable)
+        .values({
+          id: crypto.randomUUID(),
+          link: blob.url,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        })
+        .returning();
 
-    // Generate and store embeddings
-    const embeddings = await generateEmbeddings(content);
-    await db.insert(embeddingsTable).values(
-      embeddings.map((embedding) => ({
-        id: crypto.randomUUID(),
-        resourceId: resource.id,
-        ...embedding,
-      }))
-    );
+      // Generate and store embeddings
+      const embeddings = await generateEmbeddings(content);
 
-    return {
-      success: true,
-      message: "Resource successfully created and embedded.",
-    };
+      console.log(embeddings);
+
+      await db.insert(embeddingsTable).values(
+        embeddings.map((embedding) => ({
+          id: crypto.randomUUID(),
+          resourceId: resource.id,
+          ...embedding,
+        }))
+      );
+
+      return {
+        success: true,
+        message: "Resource successfully created and embedded.",
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        success: false,
+        message: "Failed to create resource.",
+      };
+    }
   });
