@@ -38,12 +38,12 @@ const courses = [
 
 const cards = [
   {
-    title: "Active Courses",
+    title: "Total Courses",
     description: "View all of your active courses",
     amount: 10,
   },
   {
-    title: "Hours spent",
+    title: "Completed Courses",
     description: "View all of your hours spent",
     amount: 20,
   },
@@ -51,6 +51,7 @@ const cards = [
     title: "Goals achieved",
     description: "View all of your goals achieved",
     amount: 30,
+    link: "/goals",
   },
 ];
 
@@ -90,8 +91,15 @@ export default async function Page() {
                 <CardTitle>{card.title}</CardTitle>
                 <CardDescription>{card.description}</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex justify-between">
                 <h3 className="text-2xl font-bold">{card.amount}</h3>
+                {card.link && (
+                  <Link href={card.link}>
+                    <Button size="icon">
+                      <ArrowUpRight className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                )}
               </CardContent>
             </Card>
           ))}
