@@ -10,3 +10,4 @@ ai tutor
 - [ ] update content on landing page
 - [ ] add goals feature
 - [ ] add AI evaluation of goals
+- [ ] add more chat components (line graph y=mx+b, decimals, integers, pythagorean theoreom, probability)
