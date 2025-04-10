@@ -8,7 +8,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   const course = await getCourse(params.id);
 
   return (
-    <div className="grid grid-cols-3 gap-4 h-full overflow-none">
+    <div className="grid grid-cols-3 gap-4 h-full">
       <div className="col-span-2 flex flex-col gap-4 items-start border-2 border-black overflow-y-auto h-full">
         {/* @ts-ignore */}
         {course?.content?.map((block: any) => {
