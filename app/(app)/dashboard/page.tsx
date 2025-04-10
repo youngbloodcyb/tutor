@@ -23,23 +23,13 @@ import { getCoursesWithProgress } from "@/lib/data/course";
 import { getAllUserProgress, getEvaluation } from "@/lib/data/progress";
 import { Evaluate } from "./evaluate";
 
-const courses = [
-  {
-    name: "Pre-algebra",
-    progress: 0.74,
-  },
-  {
-    name: "Trigonometry",
-    progress: 0.89,
-  },
-  {
-    name: "Geometry",
-    progress: 0.97,
-  },
-];
-
 export default async function Page() {
   const session = await getSession();
+
+  if (!session) {
+    redirect("/login");
+  }
+
   const courses = await getCoursesWithProgress();
   const stats = await getAllUserProgress();
   const userData = await getEvaluation();
@@ -62,10 +52,6 @@ export default async function Page() {
       link: "/goals",
     },
   ];
-
-  if (!session) {
-    redirect("/login");
-  }
 
   return (
     <div className="grid grid-cols-4 gap-4 h-full">
