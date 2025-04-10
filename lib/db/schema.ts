@@ -84,3 +84,14 @@ export const progress = pgTable("progress", {
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
 });
+
+export const goal = pgTable("goal", {
+  id: uuid("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  description: text("description"),
+  completed: boolean("completed").notNull().default(false),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});

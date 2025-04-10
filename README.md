@@ -3,7 +3,7 @@ ai tutor
 - [x] save progress on course completion
 - [ ] add RAG w/ pgvector (together)
 - [ ] make placement quiz into component
-- [ ] replace "continue learning" dummy data with actual courses
+- [x] replace "continue learning" dummy data with actual courses
 - [ ] AI course builder tool
 - [x] add CRUD operations to `/admin/users`
 - [x] add usage dashboard on admin
