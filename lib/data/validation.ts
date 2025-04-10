@@ -38,4 +38,9 @@ export const createGoalSchema = z.object({
 export const updateGoalSchema = z.object({
   id: z.string(),
   description: z.string().min(1),
+  completed: z.boolean(),
+});
+
+export const deleteGoalSchema = z.object({
+  goalId: z.string(),
 });

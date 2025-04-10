@@ -11,6 +11,9 @@ import {
 import { getGoals } from "@/lib/data/goal";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Pencil, Trash2 } from "lucide-react";
+import { DeleteGoal } from "./delete-goal";
+
 export default async function Page() {
   const session = await getSession();
 
@@ -36,6 +39,7 @@ export default async function Page() {
             <TableHead>Status</TableHead>
             <TableHead>Created</TableHead>
             <TableHead>Last Updated</TableHead>
+            <TableHead className="w-[100px]">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -50,6 +54,16 @@ export default async function Page() {
               </TableCell>
               <TableCell>
                 {new Date(goal.updatedAt).toLocaleDateString()}
+              </TableCell>
+              <TableCell>
+                <div className="flex items-center gap-2">
+                  <Link href={`/goals/${goal.id}/edit`}>
+                    <Button size="icon">
+                      <Pencil className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                  <DeleteGoal goalId={goal.id} />
+                </div>
               </TableCell>
             </TableRow>
           ))}
