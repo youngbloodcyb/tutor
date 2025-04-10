@@ -30,3 +30,12 @@ export const completeCourseSchema = z.object({
 export const deleteUserSchema = z.object({
   userId: z.string(),
 });
+
+export const createGoalSchema = z.object({
+  description: z.string().min(1),
+});
+
+export const updateGoalSchema = z.object({
+  id: z.string(),
+  description: z.string().min(1),
+});
