@@ -8,6 +8,6 @@ ai tutor
 - [x] add CRUD operations to `/admin/users`
 - [x] add usage dashboard on admin
 - [ ] update content on landing page
-- [ ] add goals feature
+- [x] add goals feature
 - [ ] add AI evaluation of goals
 - [ ] add more chat components (line graph y=mx+b, decimals, integers, pythagorean theoreom, probability)
