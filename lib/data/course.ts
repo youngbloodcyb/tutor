@@ -66,7 +66,7 @@ export const updateCourse = adminAction
     revalidatePath(`/admin/courses/edit/${id}`);
   });
 
-export const getCoursesWithProress = async () => {
+export const getCoursesWithProgress = async () => {
   const session = await getSession();
   const userId = session?.user.id;
 

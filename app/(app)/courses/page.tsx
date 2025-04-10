@@ -15,29 +15,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight, BookText } from "lucide-react";
+import { BookText } from "lucide-react";
 import { getSession } from "@/lib/auth/server";
 import { redirect } from "next/navigation";
-import { getAllCourses } from "@/lib/data/course";
+import { getCoursesWithProgress } from "@/lib/data/course";
 import Link from "next/link";
-
-const evaluations = [
-  {
-    courseName: "Pre-algebra",
-    proficiency: 0.8,
-    style: "w-9 h-9 rounded-full bg-green-600",
-  },
-  {
-    courseName: "Graphing",
-    proficiency: 0.55,
-    style: "w-9 h-9 rounded-full bg-orange-300",
-  },
-  {
-    courseName: "Solving equations",
-    proficiency: 0.67,
-    style: "w-9 h-9 rounded-full bg-yellow-200",
-  },
-];
 
 export default async function Page() {
   const session = await getSession();
@@ -46,7 +28,7 @@ export default async function Page() {
     redirect("/login");
   }
 
-  const courses = await getAllCourses();
+  const courses = await getCoursesWithProgress();
 
   return (
     <div className="col-span-3 flex flex-col gap-4">
@@ -72,7 +54,9 @@ export default async function Page() {
               {courses.map((course) => (
                 <TableRow key={course.id}>
                   <TableCell>{course.name}</TableCell>
-                  <TableCell>In progress</TableCell>
+                  <TableCell>
+                    {course.hasProgress ? "Completed" : "Incomplete"}
+                  </TableCell>
                   <TableCell>
                     <div className="flex gap-2">
                       <Link href={`/courses/${course.id}`}>

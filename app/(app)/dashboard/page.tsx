@@ -19,7 +19,7 @@ import { getSession } from "@/lib/auth/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { getCoursesWithProress } from "@/lib/data/course";
+import { getCoursesWithProgress } from "@/lib/data/course";
 import { getAllUserProgress, getEvaluation } from "@/lib/data/progress";
 import { Evaluate } from "./evaluate";
 
@@ -40,7 +40,7 @@ const courses = [
 
 export default async function Page() {
   const session = await getSession();
-  const courses = await getCoursesWithProress();
+  const courses = await getCoursesWithProgress();
   const stats = await getAllUserProgress();
   const userData = await getEvaluation();
 
@@ -113,7 +113,7 @@ export default async function Page() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {courses.map((course, index) => (
+                {courses.map((course: any, index: number) => (
                   <TableRow key={index} className="bg-bg">
                     <TableCell colSpan={4}>{course.name}</TableCell>
                     <TableCell className="flex justify-end mr-3 my-1">
