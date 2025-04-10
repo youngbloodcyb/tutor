@@ -2,7 +2,6 @@
 
 import { useChat } from "@ai-sdk/react";
 import { Weather } from "@/components/ai/weather";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SendHorizonal, Paperclip } from "lucide-react";
 import { FractionVisualizer } from "@/components/ai/fraction";
@@ -16,8 +15,25 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useState } from "react";
+import { createResource } from "@/lib/data/resource";
+import { useAction } from "next-safe-action/hooks";
+import { toast } from "@/lib/hooks/use-toast";
 
 export default function Page() {
+  const { execute, status } = useAction(createResource, {
+    onSuccess: () => {
+      setIsUploading(false);
+      toast({
+        title: "Resource uploaded successfully",
+      });
+    },
+    onError: () => {
+      setIsUploading(false);
+      toast({
+        title: "Failed to upload resource",
+      });
+    },
+  });
   const { messages, input, handleInputChange, handleSubmit } = useChat();
   const [isUploading, setIsUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -151,8 +167,11 @@ export default function Page() {
                     )}
                     <Button
                       onClick={() => {
-                        // Handle file upload here
-                        console.log("Uploading file:", selectedFile);
+                        if (!selectedFile) return;
+                        execute({
+                          file: selectedFile,
+                          content: input,
+                        });
                       }}
                       disabled={!selectedFile || isUploading}
                     >

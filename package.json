@@ -29,6 +29,7 @@
     "@tanstack/react-table": "^8.21.2",
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
+    "@vercel/blob": "^1.0.0",
     "ai": "^4.2.0",
     "better-auth": "^1.2.3",
     "class-variance-authority": "^0.7.1",
