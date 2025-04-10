@@ -4,12 +4,23 @@ import { useChat } from "@ai-sdk/react";
 import { Weather } from "@/components/ai/weather";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { SendHorizonal } from "lucide-react";
+import { SendHorizonal, Paperclip } from "lucide-react";
 import { FractionVisualizer } from "@/components/ai/fraction";
 import ReactMarkdown from "react-markdown";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useState } from "react";
 
 export default function Page() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
+  const [isUploading, setIsUploading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   return (
     <div className="p-20 w-full flex flex-col items-center justify-center space-y-4">
@@ -78,17 +89,80 @@ export default function Page() {
           </div>
         ))}
       </div>
-      <form onSubmit={handleSubmit}>
-        <div className="flex gap-2 w-[300px]">
-          <Input
+      <form onSubmit={handleSubmit} className="w-[600px] relative">
+        <div className="flex gap-2 w-full">
+          <Textarea
             value={input}
             onChange={handleInputChange}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSubmit(e);
+              }
+            }}
             placeholder="Type a message..."
-            className="shadow-shadow"
+            className="shadow-shadow resize-none min-h-[100px]"
+            rows={4}
           />
-          <Button type="submit" size="icon" className="px-4">
-            <SendHorizonal />
-          </Button>
+          <div className="flex flex-col gap-2">
+            <Button type="submit" size="icon" className="px-4">
+              <SendHorizonal />
+            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button type="button" size="icon" className="px-4">
+                  <Paperclip className="h-4 w-4" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Upload Document</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid gap-2">
+                    <label
+                      htmlFor="image-upload"
+                      className="cursor-pointer border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors"
+                    >
+                      <input
+                        id="image-upload"
+                        type="file"
+                        accept=".txt,.json,.pdf"
+                        className="hidden"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setSelectedFile(file);
+                          }
+                        }}
+                      />
+                      <Paperclip className="h-8 w-8 mx-auto mb-2 text-gray-400" />
+                      <p className="text-sm text-gray-500">
+                        Click to upload or drag and drop
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        TXT, JSON, PDF up to 2MB
+                      </p>
+                    </label>
+                    {selectedFile && (
+                      <p className="text-sm text-gray-500">
+                        Selected: {selectedFile.name}
+                      </p>
+                    )}
+                    <Button
+                      onClick={() => {
+                        // Handle file upload here
+                        console.log("Uploading file:", selectedFile);
+                      }}
+                      disabled={!selectedFile || isUploading}
+                    >
+                      {isUploading ? "Uploading..." : "Upload"}
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
       </form>
     </div>
