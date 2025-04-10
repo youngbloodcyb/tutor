@@ -14,12 +14,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Plus, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { getSession } from "@/lib/auth/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { getCoursesWithProress } from "@/lib/data/course";
+import { getAllUserProgress } from "@/lib/data/progress";
 
 const courses = [
   {
@@ -33,25 +34,6 @@ const courses = [
   {
     name: "Geometry",
     progress: 0.97,
-  },
-];
-
-const cards = [
-  {
-    title: "Total Courses",
-    description: "View all of your active courses",
-    amount: 10,
-  },
-  {
-    title: "Completed Courses",
-    description: "View all of your hours spent",
-    amount: 20,
-  },
-  {
-    title: "Goals achieved",
-    description: "View all of your goals achieved",
-    amount: 30,
-    link: "/goals",
   },
 ];
 
@@ -76,6 +58,26 @@ const evaluations = [
 export default async function Page() {
   const session = await getSession();
   const courses = await getCoursesWithProress();
+  const stats = await getAllUserProgress();
+
+  const cards = [
+    {
+      title: "Total Courses",
+      description: "View all of your active courses",
+      amount: stats.totalCourses,
+    },
+    {
+      title: "Completed Courses",
+      description: "View all of your hours spent",
+      amount: stats.completedCourses,
+    },
+    {
+      title: "Goals achieved",
+      description: "View all of your goals achieved",
+      amount: stats.achievedGoals,
+      link: "/goals",
+    },
+  ];
 
   if (!session) {
     redirect("/login");
