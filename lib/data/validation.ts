@@ -26,3 +26,7 @@ export const updateCourseSchema = z.object({
 export const completeCourseSchema = z.object({
   courseId: z.string(),
 });
+
+export const deleteUserSchema = z.object({
+  userId: z.string(),
+});

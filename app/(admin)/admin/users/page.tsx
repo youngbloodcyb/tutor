@@ -8,6 +8,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Trash2 } from "lucide-react";
+import { DeleteUser } from "./delete-user";
 
 export default async function Page() {
   const users = await getAllUsers();
@@ -24,6 +27,7 @@ export default async function Page() {
             <TableHead>Role</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Joined</TableHead>
+            <TableHead className="w-[50px]">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -35,6 +39,9 @@ export default async function Page() {
               <TableCell>{user.banned ? "Banned" : "Active"}</TableCell>
               <TableCell>
                 {new Date(user.createdAt).toLocaleDateString()}
+              </TableCell>
+              <TableCell>
+                <DeleteUser userId={user.id} />
               </TableCell>
             </TableRow>
           ))}
