@@ -137,9 +137,9 @@ export default async function Page() {
               </div>
             </div>
           </CardHeader>
-          <CardContent className="overflow-y-auto">
+          <CardContent>
             {userData?.evaluation ? (
-              <div className="prose dark:prose-invert overflow-y-auto">
+              <div className="text-sm !overflow-y-auto">
                 {userData.evaluation}
               </div>
             ) : (
