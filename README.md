@@ -9,5 +9,5 @@ ai tutor
 - [x] add usage dashboard on admin
 - [ ] update content on landing page
 - [x] add goals feature
-- [ ] add AI evaluation of goals
+- [x] add AI evaluation of goals
 - [ ] add more chat components (line graph y=mx+b, decimals, integers, pythagorean theoreom, probability)
