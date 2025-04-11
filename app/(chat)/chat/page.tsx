@@ -5,6 +5,10 @@ import { Weather } from "@/components/ai/weather";
 import { Button } from "@/components/ui/button";
 import { SendHorizonal, Paperclip } from "lucide-react";
 import { FractionVisualizer } from "@/components/ai/fraction";
+import { LineVisualizer } from "@/components/ai/line";
+import { DecimalVisualizer } from "@/components/ai/decimal";
+import { IntegerVisualizer } from "@/components/ai/integer";
+import { PythagoreanVisualizer } from "@/components/ai/pythagorean";
 import ReactMarkdown from "react-markdown";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -90,6 +94,42 @@ export default function Page() {
                           return (
                             <div key={toolCallId}>
                               <FractionVisualizer {...result} />
+                            </div>
+                          );
+                        }
+                        case "displayLine": {
+                          const { result } = toolInvocation;
+                          console.log("result", result);
+                          return (
+                            <div key={toolCallId}>
+                              <LineVisualizer {...result} />
+                            </div>
+                          );
+                        }
+                        case "displayLine": {
+                          const { result } = toolInvocation;
+                          console.log("result", result);
+                          return (
+                            <div key={toolCallId}>
+                              <DecimalVisualizer {...result} />
+                            </div>
+                          );
+                        }
+                        case "displayLine": {
+                          const { result } = toolInvocation;
+                          console.log("result", result);
+                          return (
+                            <div key={toolCallId}>
+                              <IntegerVisualizer {...result} />
+                            </div>
+                          );
+                        }
+                        case "displayLine": {
+                          const { result } = toolInvocation;
+                          console.log("result", result);
+                          return (
+                            <div key={toolCallId}>
+                              <PythagoreanVisualizer {...result} />
                             </div>
                           );
                         }
