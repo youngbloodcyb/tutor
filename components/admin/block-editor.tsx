@@ -20,7 +20,7 @@ import { Input } from "@/components/ui/input";
 import { useAction } from "next-safe-action/hooks";
 import { useToast } from "@/lib/hooks/use-toast";
 import { createCourse } from "@/lib/data/course";
-
+import { AICreator } from "@/components/admin/ai-creator";
 export function BlockEditor() {
   const { toast } = useToast();
   const { execute, isExecuting } = useAction(createCourse, {
@@ -90,6 +90,7 @@ export function BlockEditor() {
           className="w-[300px]"
         />
         <div className="flex gap-2">
+          <AICreator />
           <Button
             disabled={isExecuting}
             onClick={() => {

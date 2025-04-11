@@ -44,3 +44,7 @@ export const updateGoalSchema = z.object({
 export const deleteGoalSchema = z.object({
   goalId: z.string(),
 });
+
+export const createAICourseSchema = z.object({
+  content: z.string().min(1),
+});
