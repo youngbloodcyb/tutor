@@ -29,7 +29,7 @@ import { createAICourse } from "@/lib/data/course";
 import { toast } from "@/lib/hooks/use-toast";
 import { createAICourseSchema } from "@/lib/data/validation";
 import { useBlockStore } from "@/lib/stores/block-store";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Loader } from "lucide-react";
 
 const formSchema = createAICourseSchema;
 
@@ -103,7 +103,14 @@ export function AICreator() {
             />
             <DialogFooter>
               <Button type="submit" disabled={isExecuting}>
-                Create Course
+                {isExecuting ? (
+                  <div className="flex items-center gap-2">
+                    <Loader className="w-4 h-4 animate-spin" />
+                    Creating...
+                  </div>
+                ) : (
+                  "Create Course"
+                )}
               </Button>
             </DialogFooter>
           </form>

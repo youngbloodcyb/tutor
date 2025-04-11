@@ -210,7 +210,6 @@ export const createAICourse = adminAction
         prompt: `Generate a course based on the following content: ${text}`,
       });
 
-      console.log(JSON.stringify(object, null, 2));
       return object.blocks;
     } catch (error) {
       console.error(error);
