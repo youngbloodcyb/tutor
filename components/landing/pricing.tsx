@@ -10,39 +10,37 @@ export function Pricing() {
         <div className="grid grid-cols-3 gap-8 w900:mx-auto w900:w-2/3 w900:grid-cols-1 w500:w-full">
           <PricingPlan
             planName="Basic"
-            description="Lorem ipsum dolor sit amet"
+            description="Perfect for students just starting their math journey."
             price="10"
             perks={[
-              "5 products",
-              "Up to 1,000 subscribers",
-              "Basic analytics",
-              "48-hour support response time",
+              "Access to core math lessons and exercises",
+              "Interactive problem-solving",
+              "Instant Feedback",
+              "Progress tracking for student",
             ]}
           />
           <PricingPlan
             planName="Essential"
-            description="Lorem ipsum dolor sit amet"
+            description="For families seeking personalized learning and enhanced features."
             price="25"
             perks={[
-              "25 products",
-              "Up to 10,000 subscribers",
-              "Advanced analytics",
-              "24-hour support response time",
-              "Marketing automations",
+              "Includes all Basic features",
+              "Customized learning paths",
+              "Gamified challenges and rewards",
+              "Parental insights and monitoring",
+              "Progress reports",
             ]}
             mostPopular
           />
           <PricingPlan
             planName="Growth"
-            description="Lorem ipsum dolor sit amet"
+            description="Designed for advanced learners and ambitious goals."
             price="50"
             perks={[
-              "Unlimited products",
-              "Unlimited subscribers",
-              "Advanced analytics",
-              "1-hour, dedicated support response time",
-              "Marketing automations",
-              "Custom reporting tools",
+              "Includes all Essential features",
+              "Access to advanced topics and test prep",
+              "Priority support and one-on-one tutoring sessions",
+              "Exclusive challenges and competitions",
             ]}
           />
         </div>
