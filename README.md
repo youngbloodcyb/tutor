@@ -4,7 +4,7 @@ ai tutor
 - [x] add RAG w/ pgvector
 - [ ] make placement quiz into component
 - [x] replace "continue learning" dummy data with actual courses
-- [ ] AI course builder tool
+- [x] AI course builder tool
 - [x] add CRUD operations to `/admin/users`
 - [x] add usage dashboard on admin
 - [x] update content on landing page
