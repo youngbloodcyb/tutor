@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
-
+import { Upload } from "./upload";
 export default async function Page() {
   const resources = await getResources();
 
@@ -19,7 +19,7 @@ export default async function Page() {
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Resources</h1>
-        {/* upload button */}
+        <Upload />
       </div>
       <Table>
         <TableCaption>A list of all resources.</TableCaption>
