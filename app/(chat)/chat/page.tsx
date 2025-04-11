@@ -106,7 +106,7 @@ export default function Page() {
                             </div>
                           );
                         }
-                        case "displayLine": {
+                        case "displayDecimal": {
                           const { result } = toolInvocation;
                           console.log("result", result);
                           return (
@@ -115,7 +115,7 @@ export default function Page() {
                             </div>
                           );
                         }
-                        case "displayLine": {
+                        case "displayInteger": {
                           const { result } = toolInvocation;
                           console.log("result", result);
                           return (
@@ -124,7 +124,7 @@ export default function Page() {
                             </div>
                           );
                         }
-                        case "displayLine": {
+                        case "displayPythagorean": {
                           const { result } = toolInvocation;
                           console.log("result", result);
                           return (
