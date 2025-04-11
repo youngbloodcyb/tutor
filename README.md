@@ -7,7 +7,7 @@ ai tutor
 - [ ] AI course builder tool
 - [x] add CRUD operations to `/admin/users`
 - [x] add usage dashboard on admin
-- [ ] update content on landing page
+- [x] update content on landing page
 - [x] add goals feature
 - [x] add AI evaluation of goals
 - [ ] add more chat components (line graph y=mx+b, decimals, integers, pythagorean theoreom, probability)
