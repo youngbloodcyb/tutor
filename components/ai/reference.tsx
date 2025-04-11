@@ -1,5 +1,11 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface TextPreviewCardProps {
   name: string;
@@ -23,28 +29,32 @@ export function ReferenceCard({
     : name;
 
   return (
-    <Card className="w-full max-w-md overflow-hidden">
-      <CardHeader className="p-4 pb-0">
-        <div className="flex items-center justify-between">
-          <Badge className="px-2 py-1 text-xs font-medium">Reference</Badge>
-          <Badge
-            className="px-2 py-1 text-xs font-medium"
-            style={{
-              backgroundColor: `rgba(52, 211, 153, ${similarity})`,
-              color: similarity > 0.5 ? "white" : "black",
-            }}
-          >
-            {similarityPercentage}% match
-          </Badge>
-        </div>
-      </CardHeader>
-      <CardContent className="p-4">
-        <div className="rounded-md bg-muted p-3 font-mono text-sm overflow-x-auto">
-          <pre className="whitespace-pre-wrap break-words">
-            {displayContent}
-          </pre>
-        </div>
-      </CardContent>
-    </Card>
+    <Accordion className="w-full" type="single" collapsible>
+      <AccordionItem className="border-none" value="content">
+        <AccordionTrigger className="py-2">
+          <div className="flex items-center gap-2">
+            <Badge className="px-2 py-1 text-xs font-medium">Reference</Badge>
+            <Badge
+              className="px-2 py-1 text-xs font-medium"
+              style={{
+                backgroundColor: `rgba(52, 211, 153, ${similarity})`,
+                color: similarity > 0.5 ? "white" : "black",
+              }}
+            >
+              {similarityPercentage}% match
+            </Badge>
+          </div>
+        </AccordionTrigger>
+        <AccordionContent>
+          <Card>
+            <CardContent>
+              <div className="rounded-md bg-muted p-3 font-mono text-sm overflow-x-auto">
+                <p className="text-xs">{displayContent}</p>
+              </div>
+            </CardContent>
+          </Card>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 }

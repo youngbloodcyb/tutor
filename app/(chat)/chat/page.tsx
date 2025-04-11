@@ -138,7 +138,10 @@ export default function Page() {
                           const { result } = toolInvocation;
                           console.log("result", result);
                           return (
-                            <div key={toolCallId}>
+                            <div
+                              key={toolCallId}
+                              className="flex flex-col gap-2"
+                            >
                               {result.map((item: any, index: number) => (
                                 <ReferenceCard key={index} {...item} />
                               ))}
