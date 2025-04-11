@@ -22,9 +22,10 @@ import { useState } from "react";
 import { createResource } from "@/lib/data/resource";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "@/lib/hooks/use-toast";
+import { ReferenceCard } from "@/components/ai/reference";
 
 export default function Page() {
-  const { execute, isExecuting } = useAction(createResource, {
+  const { execute } = useAction(createResource, {
     onSuccess: () => {
       setIsUploading(false);
       toast({
@@ -130,6 +131,17 @@ export default function Page() {
                           return (
                             <div key={toolCallId}>
                               <PythagoreanVisualizer {...result} />
+                            </div>
+                          );
+                        }
+                        case "getInformation": {
+                          const { result } = toolInvocation;
+                          console.log("result", result);
+                          return (
+                            <div key={toolCallId}>
+                              {result.map((item: any, index: number) => (
+                                <ReferenceCard key={index} {...item} />
+                              ))}
                             </div>
                           );
                         }

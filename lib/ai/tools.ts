@@ -29,7 +29,10 @@ export const getInformationTool = createTool({
   parameters: z.object({
     question: z.string().describe("the users question"),
   }),
-  execute: async ({ question }) => findRelevantContent(question),
+  execute: async ({ question }) => {
+    const relevantContent = await findRelevantContent(question);
+    return relevantContent;
+  },
 });
 
 export const tools = {
