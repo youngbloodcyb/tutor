@@ -22,3 +22,25 @@ export const updateCourseSchema = z.object({
   name: z.string().min(1),
   blocks: z.array(z.any()),
 });
+
+export const completeCourseSchema = z.object({
+  courseId: z.string(),
+});
+
+export const deleteUserSchema = z.object({
+  userId: z.string(),
+});
+
+export const createGoalSchema = z.object({
+  description: z.string().min(1),
+});
+
+export const updateGoalSchema = z.object({
+  id: z.string(),
+  description: z.string().min(1),
+  completed: z.boolean(),
+});
+
+export const deleteGoalSchema = z.object({
+  goalId: z.string(),
+});

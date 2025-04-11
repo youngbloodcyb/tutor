@@ -3,12 +3,15 @@ import { Text } from "@/components/course/text";
 import { Quiz } from "@/components/course/quiz";
 import { AddToChatButton } from "./add-to-chat-button";
 import { CourseChat } from "./course-chat";
+import { CompleteForm } from "./complete-form";
+import { getProgress } from "@/lib/data/progress";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const course = await getCourse(params.id);
+  const progress = await getProgress(params.id);
 
   return (
-    <div className="grid grid-cols-3 gap-4 h-full overflow-none">
+    <div className="grid grid-cols-3 gap-4 h-full">
       <div className="col-span-2 flex flex-col gap-4 items-start border-2 border-black overflow-y-auto h-full">
         {/* @ts-ignore */}
         {course?.content?.map((block: any) => {
@@ -27,6 +30,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             );
           }
         })}
+        <CompleteForm completed={!!progress} courseId={params.id} />
       </div>
       <div className="col-span-1 border-2 border-black relative overflow-y-auto">
         <CourseChat courseId={params.id} />
