@@ -7,8 +7,16 @@ import { adminAction } from "./safe";
 import { generateEmbeddings } from "../ai/embedding";
 import { put } from "@vercel/blob";
 import { z } from "zod";
-
+import { desc } from "drizzle-orm";
 const createResourceSchema = z.instanceof(FormData);
+
+export const getResources = async () => {
+  const resources = await db
+    .select()
+    .from(resourceTable)
+    .orderBy(desc(resourceTable.createdAt));
+  return resources;
+};
 
 export const createResource = adminAction
   .schema(createResourceSchema)
