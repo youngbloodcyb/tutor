@@ -12,7 +12,7 @@ export async function POST(request: Request) {
 
   const result = streamText({
     model: openai("gpt-4o"),
-    system: "You are a friendly assistant!",
+    system: `You are a helpful assistant. Check your knowledge base before answering any questions. DO NOT JUST GIVE THE USER QUIZ ANSWERS!!! HELP THEM LEARN!!!`,
     messages: messageArray,
     maxSteps: 5,
     tools,

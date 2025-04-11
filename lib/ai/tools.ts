@@ -1,5 +1,6 @@
 import { tool as createTool } from "ai";
 import { z } from "zod";
+import { findRelevantContent } from "@/lib/ai/embedding";
 
 export const weatherTool = createTool({
   description: "Display the weather for a location",
@@ -23,7 +24,16 @@ export const fractionTool = createTool({
   },
 });
 
+export const getInformationTool = createTool({
+  description: `get information from your knowledge base to answer questions.`,
+  parameters: z.object({
+    question: z.string().describe("the users question"),
+  }),
+  execute: async ({ question }) => findRelevantContent(question),
+});
+
 export const tools = {
   displayWeather: weatherTool,
   displayFraction: fractionTool,
+  getInformation: getInformationTool,
 };
