@@ -3,14 +3,14 @@
 import { db } from "@/lib/db";
 import { resource as resourceTable } from "@/lib/db/schema";
 import { embeddings as embeddingsTable } from "@/lib/db/schema";
-import { authenticatedAction } from "./safe";
+import { adminAction } from "./safe";
 import { generateEmbeddings } from "../ai/embedding";
 import { put } from "@vercel/blob";
 import { z } from "zod";
 
 const createResourceSchema = z.instanceof(FormData);
 
-export const createResource = authenticatedAction
+export const createResource = adminAction
   .schema(createResourceSchema)
   .action(async ({ parsedInput: formData }) => {
     const file = formData.get("file") as File;
