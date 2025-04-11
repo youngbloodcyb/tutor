@@ -194,7 +194,7 @@ export default function Page() {
                       <input
                         id="image-upload"
                         type="file"
-                        accept=".txt,.json,.pdf"
+                        accept=".txt,.json"
                         className="hidden"
                         onChange={(e) => {
                           const file = e.target.files?.[0];
@@ -208,7 +208,7 @@ export default function Page() {
                         Click to upload or drag and drop
                       </p>
                       <p className="text-xs text-gray-400">
-                        TXT, JSON, PDF up to 2MB
+                        TXT, JSON up to 2MB
                       </p>
                     </label>
                     {selectedFile && (

@@ -14,7 +14,6 @@ export const createResource = authenticatedAction
   .schema(createResourceSchema)
   .action(async ({ parsedInput: formData }) => {
     const file = formData.get("file") as File;
-    const content = formData.get("content") as string;
 
     try {
       // Upload file to Vercel Blob
@@ -35,10 +34,9 @@ export const createResource = authenticatedAction
         })
         .returning();
 
+      const text = await file.text();
       // Generate and store embeddings
-      const embeddings = await generateEmbeddings(content);
-
-      console.log(embeddings);
+      const embeddings = await generateEmbeddings(text);
 
       await db.insert(embeddingsTable).values(
         embeddings.map((embedding) => ({
