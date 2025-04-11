@@ -41,7 +41,7 @@ export function IntegerVisualizer({
           <div className="flex-1 h-8 border border-gray-300 rounded-md overflow-hidden">
             {isNegative && (
               <div
-                className="h-full bg-destructive"
+                className="h-full bg-black"
                 style={{ width: `${(showBlocks / maxBlocks) * 100}%` }}
               />
             )}
@@ -52,7 +52,7 @@ export function IntegerVisualizer({
           <div className="flex-1 h-8 border border-gray-300 rounded-md overflow-hidden">
             {!isNegative && (
               <div
-                className="h-full bg-primary"
+                className="h-full bg-black"
                 style={{ width: `${(showBlocks / maxBlocks) * 100}%` }}
               />
             )}

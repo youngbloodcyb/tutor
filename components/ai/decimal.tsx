@@ -42,7 +42,7 @@ export function DecimalVisualizer({
               i < filledBlocks
                 ? isNegative
                   ? "bg-destructive"
-                  : "bg-primary"
+                  : "bg-black"
                 : "bg-muted border-border border-2"
             }`}
             style={{ width: `${100 / totalBlocks}%` }}
@@ -80,7 +80,7 @@ export function DecimalVisualizer({
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="decimal">Decimal Number</Label>
+          <Label htmlFor="decimal">Decimal Value</Label>
           <Input
             id="decimal"
             type="number"

@@ -39,26 +39,12 @@ export function LineVisualizer({
   };
 
   const renderLineGraph = () => {
-    // Create a 400x400 pixel canvas for the graph
     const canvasSize = 400;
     const center = canvasSize / 2;
-    const scale = 20; // pixels per unit
+    const scale = 20;
 
     return (
-      <div className="relative w-[400px] h-[400px] border border-gray-300 bg-white">
-        {/* X and Y axes */}
-        <div className="absolute w-full h-px bg-gray-300 top-1/2" />
-        <div className="absolute h-full w-px bg-gray-300 left-1/2" />
-        
-        {/* Line */}
-        <div
-          className="absolute w-full h-px bg-blue-500"
-          style={{
-            transform: `rotate(${Math.atan(slope) * (180 / Math.PI)}deg)`,
-            top: `${center - yIntercept * scale}px`,
-          }}
-        />
-        
+      <div className="relative w-[400px] h-[400px] border border-gray-300 bg-white overflow-hidden">
         {/* Grid lines */}
         {Array.from({ length: 20 }).map((_, i) => (
           <React.Fragment key={i}>
@@ -66,6 +52,21 @@ export function LineVisualizer({
             <div className="absolute h-full w-px bg-gray-100" style={{ left: `${i * 20}px` }} />
           </React.Fragment>
         ))}
+        
+        {/* X and Y axes */}
+        <div className="absolute w-full h-px bg-gray-300 top-1/2" />
+        <div className="absolute h-full w-px bg-gray-300 left-1/2" />
+        
+        {/* Line */}
+        <div
+          className="absolute h-1 bg-blue-500 z-10"
+          style={{
+            width: `${canvasSize * 2}px`,
+            transform: `rotate(${-Math.atan(slope) * (180 / Math.PI)}deg)`,
+            top: `${center - yIntercept * scale}px`,
+            left: `-${canvasSize/2}px`,
+          }}
+        />
       </div>
     );
   };
@@ -139,7 +140,7 @@ export function LineVisualizer({
 
         <div className="space-y-2">
           <Label>Equation: {getEquation()}</Label>
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-black">
             • Slope (m): {slope} (rise/run)
             <br />
             • Y-Intercept (b): {yIntercept} (where the line crosses the y-axis)

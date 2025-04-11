@@ -42,48 +42,61 @@ export function PythagoreanVisualizer({
 
   const renderTriangle = () => {
     const hypotenuse = calculateHypotenuse();
-    const scale = 20; // pixels per unit
-    const maxSize = 200; // maximum size in pixels
+    const scale = 20;
+    const maxSize = 200;
+    const padding = 20;
 
-    // Calculate scaling factor to fit within maxSize
-    const scaleFactor = Math.min(maxSize / (a * scale), maxSize / (b * scale));
+    // Find the maximum side length to determine scaling
+    const maxSide = Math.max(a, b);
+    const scaleFactor = (maxSize - padding * 2) / (maxSide * scale);
+    
     const scaledA = a * scale * scaleFactor;
     const scaledB = b * scale * scaleFactor;
 
     return (
       <div className="relative w-[200px] h-[200px] border border-gray-300 bg-white">
-        {/* Triangle */}
+        {/* Side A (horizontal) */}
         <div
-          className="absolute border-2 border-primary"
+          className="absolute bg-blue-500"
           style={{
             width: `${scaledA}px`,
+            height: '6px',
+            top: `${padding + scaledB}px`,
+            left: `${padding}px`,
+          }}
+        />
+        {/* Side B (vertical) */}
+        <div
+          className="absolute bg-blue-500"
+          style={{
+            width: '6px',
             height: `${scaledB}px`,
-            borderRight: 'none',
-            borderBottom: 'none',
+            top: `${padding}px`,
+            left: `${padding}px`,
           }}
         />
         {/* Hypotenuse */}
         <div
-          className="absolute border-2 border-primary"
+          className="absolute bg-blue-500"
           style={{
             width: `${Math.sqrt(scaledA * scaledA + scaledB * scaledB)}px`,
+            height: '6px',
             transform: `rotate(${Math.atan2(scaledB, scaledA) * (180 / Math.PI)}deg)`,
             transformOrigin: '0 0',
-            borderTop: 'none',
-            borderRight: 'none',
-            borderBottom: 'none',
+            top: `${padding}px`,
+            left: `${padding}px`,
           }}
         />
         {/* Labels */}
-        <div className="absolute" style={{ top: `${scaledB/2}px`, left: '-20px' }}>
-          a = {a}
+        <div className="absolute font-bold" style={{ top: `${padding + scaledB/2}px`, left: '-30px' }}>
+          a = {a.toFixed(2)}
         </div>
-        <div className="absolute" style={{ left: `${scaledA/2}px`, top: `${scaledB + 5}px` }}>
-          b = {b}
+        <div className="absolute font-bold" style={{ left: `${padding + scaledA/2}px`, top: `${padding + scaledB + 20}px` }}>
+          b = {b.toFixed(2)}
         </div>
-        <div className="absolute" style={{ 
-          left: `${scaledA/2 + 10}px`, 
-          top: `${scaledB/2 - 10}px`,
+        <div className="absolute font-bold" style={{ 
+          left: `${padding + scaledA/2 + 20}px`, 
+          top: `${padding + scaledB/2 - 10}px`,
           transform: `rotate(${Math.atan2(scaledB, scaledA) * (180 / Math.PI)}deg)`
         }}>
           c = {hypotenuse.toFixed(2)}
@@ -132,9 +145,9 @@ export function PythagoreanVisualizer({
           <div className="text-2xl">
             a² + b² = c²
             <br />
-            {a}² + {b}² = {hypotenuse.toFixed(2)}²
+            {a.toFixed(2)}² + {b.toFixed(2)}² = {hypotenuse.toFixed(2)}²
             <br />
-            {a * a} + {b * b} = {(hypotenuse * hypotenuse).toFixed(2)}
+            {(a * a).toFixed(2)} + {(b * b).toFixed(2)} = {(hypotenuse * hypotenuse).toFixed(2)}
           </div>
         </div>
 
@@ -148,12 +161,12 @@ export function PythagoreanVisualizer({
         <div className="space-y-2">
           <Label>Calculations</Label>
           <div className="text-sm space-y-1">
-            <div>Side A (a): {a}</div>
-            <div>Side B (b): {b}</div>
+            <div>Side A (a): {a.toFixed(2)}</div>
+            <div>Side B (b): {b.toFixed(2)}</div>
             <div>Hypotenuse (c): {hypotenuse.toFixed(2)}</div>
             <div className="mt-2">
-              <div>a² = {a * a}</div>
-              <div>b² = {b * b}</div>
+              <div>a² = {(a * a).toFixed(2)}</div>
+              <div>b² = {(b * b).toFixed(2)}</div>
               <div>a² + b² = {(a * a + b * b).toFixed(2)}</div>
               <div>√(a² + b²) = {hypotenuse.toFixed(2)}</div>
             </div>
