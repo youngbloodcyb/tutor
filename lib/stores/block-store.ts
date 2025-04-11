@@ -27,6 +27,7 @@ interface BlockStore {
     courseName: string;
   };
   initializeStore: (name: string, id: string, blocks: Block[]) => void;
+  setBlocks: (blocks: Block[]) => void;
   resetStore: () => void;
 }
 
@@ -106,6 +107,7 @@ export const useBlockStore = create<BlockStore>((set, get) => ({
       courseId: id,
       blocks: blocks,
     }),
+  setBlocks: (blocks: Block[]) => set({ blocks: blocks }),
   resetStore: () =>
     set({
       blocks: [],

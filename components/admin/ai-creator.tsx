@@ -29,7 +29,6 @@ import { createAICourse } from "@/lib/data/course";
 import { toast } from "@/lib/hooks/use-toast";
 import { createAICourseSchema } from "@/lib/data/validation";
 import { useBlockStore } from "@/lib/stores/block-store";
-import { v4 as uuidv4 } from "uuid";
 import { Sparkles } from "lucide-react";
 
 const formSchema = createAICourseSchema;
@@ -41,13 +40,16 @@ const defaultValues: Partial<FormValues> = {
 };
 
 export function AICreator() {
+  const setBlocks = useBlockStore((state) => state.setBlocks);
+  const [open, setOpen] = React.useState(false);
+
   const { execute, isExecuting } = useAction(createAICourse, {
     onSuccess: (result) => {
       toast({
         title: "Course draft generated successfully",
       });
-      const initializeStore = useBlockStore((state) => state.initializeStore);
-      initializeStore("Course Name", uuidv4(), result.data || []);
+      setBlocks(result.data || []);
+      setOpen(false);
     },
     onError: () => {
       toast({
@@ -55,7 +57,6 @@ export function AICreator() {
       });
     },
   });
-  const [open, setOpen] = React.useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),

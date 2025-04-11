@@ -109,6 +109,9 @@ export function BlockEditor() {
             Add Block
             <Plus className="h-4 w-4" />
           </Button>
+          {/* <Button onClick={() => console.log(getCourseInfo())}>
+            Log Blocks
+          </Button> */}
         </div>
       </div>
       <div className="grid grid-cols-4 gap-4">
