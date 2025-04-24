@@ -14,14 +14,27 @@ import Link from "next/link";
 import { Pencil, Trash2 } from "lucide-react";
 import { DeleteGoal } from "./delete-goal";
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
   const session = await getSession();
 
   if (!session?.user) {
     return null;
   }
 
+  const currentPage = Number(searchParams.page) || 1;
+  const goalsPerPage = 5;
   const goals = await getGoals();
+
+  const totalPages = Math.ceil((goals?.length || 0) / goalsPerPage);
+  const paginatedGoals =
+    goals?.slice(
+      (currentPage - 1) * goalsPerPage,
+      currentPage * goalsPerPage
+    ) || [];
 
   return (
     <div className="space-y-4">
@@ -43,7 +56,7 @@ export default async function Page() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {goals?.map((goal) => (
+          {paginatedGoals?.map((goal) => (
             <TableRow key={goal.id}>
               <TableCell className="font-medium">{goal.description}</TableCell>
               <TableCell>
@@ -69,6 +82,22 @@ export default async function Page() {
           ))}
         </TableBody>
       </Table>
+
+      <div className="flex justify-center gap-2 mt-4">
+        {currentPage > 1 && (
+          <Link href={`/goals?page=${currentPage - 1}`}>
+            <Button>Previous</Button>
+          </Link>
+        )}
+        <span className="py-2 px-3">
+          Page {currentPage} of {totalPages}
+        </span>
+        {currentPage < totalPages && (
+          <Link href={`/goals?page=${currentPage + 1}`}>
+            <Button>Next</Button>
+          </Link>
+        )}
+      </div>
     </div>
   );
 }
