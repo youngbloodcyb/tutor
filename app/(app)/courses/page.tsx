@@ -21,14 +21,26 @@ import { redirect } from "next/navigation";
 import { getCoursesWithProgress } from "@/lib/data/course";
 import Link from "next/link";
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
   const session = await getSession();
 
   if (!session) {
     redirect("/login");
   }
 
+  const currentPage = Number(searchParams.page) || 1;
+  const coursesPerPage = 5;
   const courses = await getCoursesWithProgress();
+
+  const totalPages = Math.ceil(courses.length / coursesPerPage);
+  const paginatedCourses = courses.slice(
+    (currentPage - 1) * coursesPerPage,
+    currentPage * coursesPerPage
+  );
 
   return (
     <div className="col-span-3 flex flex-col gap-4">
@@ -51,7 +63,7 @@ export default async function Page() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {courses.map((course) => (
+              {paginatedCourses.map((course) => (
                 <TableRow key={course.id}>
                   <TableCell>{course.name}</TableCell>
                   <TableCell>
@@ -70,6 +82,22 @@ export default async function Page() {
               ))}
             </TableBody>
           </Table>
+
+          <div className="flex justify-center gap-2 mt-4">
+            {currentPage > 1 && (
+              <Link href={`/courses?page=${currentPage - 1}`}>
+                <Button>Previous</Button>
+              </Link>
+            )}
+            <span className="py-2 px-3">
+              Page {currentPage} of {totalPages}
+            </span>
+            {currentPage < totalPages && (
+              <Link href={`/courses?page=${currentPage + 1}`}>
+                <Button>Next</Button>
+              </Link>
+            )}
+          </div>
         </CardContent>
       </Card>
     </div>
