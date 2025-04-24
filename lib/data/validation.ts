@@ -48,3 +48,7 @@ export const deleteGoalSchema = z.object({
 export const createAICourseSchema = z.object({
   content: z.string().min(1),
 });
+
+export const saveQuizStatusSchema = z.object({
+  score: z.number(),
+});

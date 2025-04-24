@@ -14,8 +14,28 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { ArrowRight, ArrowLeft, Trophy } from "lucide-react";
 import { quizData } from "./data";
+import { saveQuizStatus } from "@/lib/data/quiz";
+import { useAction } from "next-safe-action/hooks";
+import { parseActionError } from "@/lib/data/safe";
+import { useToast } from "@/lib/hooks/use-toast";
 
-export default function Quiz() {
+export function Quiz() {
+  const { toast } = useToast();
+
+  const { execute } = useAction(saveQuizStatus, {
+    onSuccess() {
+      toast({
+        title: "Quiz score saved.",
+      });
+    },
+    onError({ error }) {
+      toast({
+        title: "Error",
+        description: parseActionError(error),
+      });
+    },
+  });
+
   const [currentSection, setCurrentSection] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [userAnswers, setUserAnswers] = useState<Record<string, string>>({});
@@ -59,6 +79,7 @@ export default function Quiz() {
       setCurrentSection(currentSection + 1);
       setCurrentQuestion(0);
     } else {
+      execute({ score: score });
       // Calculate final score
       let correctAnswers = 0;
 

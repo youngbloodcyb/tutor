@@ -6,7 +6,7 @@ interface MathDisplayProps {
   math: string;
 }
 
-export default function MathDisplay({ math }: MathDisplayProps) {
+export function MathDisplay({ math }: MathDisplayProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
