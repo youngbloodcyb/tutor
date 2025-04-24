@@ -30,7 +30,7 @@ export default async function Page() {
     redirect("/login");
   }
 
-  const courses = await getCoursesWithProgress();
+  const courses = (await getCoursesWithProgress()).slice(0, 5); // only show 5 courses here
   const stats = await getAllUserProgress();
   const userData = await getEvaluation();
 
