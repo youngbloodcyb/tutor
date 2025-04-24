@@ -23,6 +23,8 @@ export const user = pgTable("user", {
   banReason: text("ban_reason"),
   banExpires: timestamp("ban_expires"),
   evaluation: text("evaluation"),
+  quizCompleted: boolean("quiz_completed").notNull().default(false),
+  quizScore: integer("quiz_score"),
 });
 
 export const session = pgTable("session", {

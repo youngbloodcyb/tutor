@@ -43,6 +43,13 @@
       "when": 1744328741757,
       "tag": "0005_melted_plazm",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1745537563778,
+      "tag": "0006_even_thunderbolts",
+      "breakpoints": true
     }
   ]
 }
