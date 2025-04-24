@@ -42,7 +42,7 @@ export default async function Page() {
     },
     {
       title: "Completed Courses",
-      description: "View all of your hours spent",
+      description: "View all of your completed courses",
       amount: stats.completedCourses,
     },
     {
