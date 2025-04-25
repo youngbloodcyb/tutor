@@ -23,6 +23,8 @@ import { getCoursesWithProgress } from "@/lib/data/course";
 import { getAllUserProgress, getEvaluation } from "@/lib/data/progress";
 import { Evaluate } from "./evaluate";
 import { PreQuizDialog } from "./quiz-dialog";
+import { EvaluationDialog } from "./evaluation-dialog";
+import { QuizResults } from "./quiz-results";
 
 export default async function Page() {
   const session = await getSession();
@@ -53,8 +55,6 @@ export default async function Page() {
       link: "/goals",
     },
   ];
-
-  console.log(stats.quizResults);
 
   return (
     <>
@@ -128,19 +128,24 @@ export default async function Page() {
               </div>
             </CardHeader>
             <CardContent>
-              {userData?.evaluation ? (
-                <div className="text-sm !overflow-y-auto">
-                  {userData.evaluation}
-                </div>
-              ) : (
-                <div className="text-center text-muted-foreground py-8">
-                  <p>No evaluation available yet.</p>
-                  <p className="text-sm mt-2">
-                    Click &quot;Get New Evaluation&quot; to generate your first
-                    progress report.
-                  </p>
-                </div>
-              )}
+              <div className="space-y-4">
+                {userData?.evaluation ? (
+                  <div className="text-sm">
+                    <EvaluationDialog evaluation={userData.evaluation} />
+                  </div>
+                ) : (
+                  <div className="text-center text-muted-foreground py-8">
+                    <p>No evaluation available yet.</p>
+                    <p className="text-sm mt-2">
+                      Click &quot;Get New Evaluation&quot; to generate your
+                      first progress report.
+                    </p>
+                  </div>
+                )}
+                {stats.quizResults && (
+                  <QuizResults sections={stats.quizResults} />
+                )}
+              </div>
             </CardContent>
           </Card>
         </div>

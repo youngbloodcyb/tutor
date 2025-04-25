@@ -11,6 +11,11 @@ import { getSession } from "@/lib/auth/server";
 import { course, goal, user } from "@/lib/db/schema";
 import { OpenAI } from "openai";
 
+interface QuizResults {
+  section: string;
+  score: number;
+}
+
 export const completeCourse = authenticatedAction
   .schema(completeCourseSchema)
   .action(async ({ parsedInput, ctx: { userId } }) => {
@@ -91,7 +96,7 @@ export const getAllUserProgress = async () => {
       .select({ value: user.quizResults })
       .from(user)
       .where(eq(user.id, userId))
-      .then((res) => res[0].value),
+      .then((res) => res[0].value) as Promise<Array<QuizResults>>,
   ]);
 
   return {
@@ -120,6 +125,12 @@ export const evaluatePerformance = authenticatedAction.action(
       db.select().from(course),
     ]);
 
+    const quizResults = (await db
+      .select()
+      .from(user)
+      .where(eq(user.id, userId))
+      .then((res) => res[0].quizResults)) as Array<QuizResults>;
+
     // Calculate metrics
     const completionRate = (coursesProgress.length / totalCourses.length) * 100;
     const achievedGoals = completedGoals.length;
@@ -129,8 +140,9 @@ export const evaluatePerformance = authenticatedAction.action(
 - Course Completion Rate: ${completionRate.toFixed(1)}%
 - Completed Courses: ${coursesProgress.length} out of ${totalCourses.length}
 - Achieved Goals: ${achievedGoals}
+- Quiz Results: ${JSON.stringify(quizResults)}
 
-Provide a brief, encouraging evaluation of their progress and suggest next steps. 
+Provide a brief, encouraging evaluation of their progress and suggest next steps. Suggest areas of improvement.
 Keep the response under 200 words and maintain a supportive, motivational tone.`;
 
     try {
