@@ -23,10 +23,10 @@ const navItems = [
     title: "Chat",
     href: "/chat",
   },
-  {
-    title: "Settings",
-    href: "/settings",
-  },
+  // {
+  //   title: "Settings",
+  //   href: "/settings",
+  // },
 ];
 
 export async function NavMenu() {
