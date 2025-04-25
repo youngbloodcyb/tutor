@@ -79,6 +79,22 @@ export function Quiz() {
       setCurrentSection(currentSection + 1);
       setCurrentQuestion(0);
     } else {
+      // Calculate final score first
+      let correctAnswers = 0;
+
+      sections.forEach((section, sectionIndex) => {
+        section.questions.forEach((question, questionIndex) => {
+          const userAnswer =
+            userAnswers[`${sectionIndex}-${questionIndex}`] || "";
+          if (
+            userAnswer.trim().toLowerCase() ===
+            question.answer.trim().toLowerCase()
+          ) {
+            correctAnswers++;
+          }
+        });
+      });
+
       // Calculate section-by-section scores
       const sectionResults = sections.map((section) => {
         const sectionQuestions = section.questions.length;
@@ -102,26 +118,12 @@ export function Quiz() {
         };
       });
 
-      console.log("score: ", score);
-      execute({ score: score, results: sectionResults });
-
-      // Calculate final score
-      let correctAnswers = 0;
-
-      sections.forEach((section, sectionIndex) => {
-        section.questions.forEach((question, questionIndex) => {
-          const userAnswer =
-            userAnswers[`${sectionIndex}-${questionIndex}`] || "";
-          if (
-            userAnswer.trim().toLowerCase() ===
-            question.answer.trim().toLowerCase()
-          ) {
-            correctAnswers++;
-          }
-        });
-      });
-
+      // Set the score first
       setScore(correctAnswers);
+
+      // Then save with the calculated score
+      execute({ score: correctAnswers, results: sectionResults });
+
       setQuizCompleted(true);
     }
   };
