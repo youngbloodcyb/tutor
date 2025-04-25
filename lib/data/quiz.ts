@@ -37,6 +37,7 @@ export const saveQuizStatus = authenticatedAction
       .set({
         quizScore: parsedInput.score,
         quizCompleted: true,
+        quizResults: parsedInput.results,
         updatedAt: new Date(),
       })
       .where(eq(user.id, session.user.id));

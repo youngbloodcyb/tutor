@@ -79,7 +79,32 @@ export function Quiz() {
       setCurrentSection(currentSection + 1);
       setCurrentQuestion(0);
     } else {
-      execute({ score: score });
+      // Calculate section-by-section scores
+      const sectionResults = sections.map((section) => {
+        const sectionQuestions = section.questions.length;
+        let sectionCorrect = 0;
+
+        section.questions.forEach((question, questionIndex) => {
+          const sectionIndex = sections.indexOf(section);
+          const userAnswer =
+            userAnswers[`${sectionIndex}-${questionIndex}`] || "";
+          if (
+            userAnswer.trim().toLowerCase() ===
+            question.answer.trim().toLowerCase()
+          ) {
+            sectionCorrect++;
+          }
+        });
+
+        return {
+          section: section.title,
+          score: sectionCorrect / sectionQuestions,
+        };
+      });
+
+      console.log("score: ", score);
+      execute({ score: score, results: sectionResults });
+
       // Calculate final score
       let correctAnswers = 0;
 

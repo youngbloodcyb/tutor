@@ -1,0 +1,1 @@
+ALTER TABLE "user" ADD COLUMN "quiz_results" jsonb;

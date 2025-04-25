@@ -22,14 +22,14 @@ export const quizData = [
       {
         questionText:
           'Write an algebraic expression for the phrase "5 more than twice a number x".',
-        answer: "2x + 5",
+        answer: "2x+5",
         answerExplanation: "2x + 5",
         type: "writingAlgebraicExpressions",
       },
       {
         questionText:
           'Write an algebraic expression for the phrase "the sum of a number k and 7, all divided by 3".',
-        answer: "(k + 7)/3",
+        answer: "(k+7)/3",
         answerExplanation: "\\frac{k + 7}{3}",
         type: "writingAlgebraicExpressions",
       },
@@ -74,13 +74,13 @@ export const quizData = [
     questions: [
       {
         questionText: "Solve the inequality for x: x + 3 > 7.",
-        answer: "x > 4",
+        answer: "x>4",
         answerExplanation: "x > 7 - 3, x > 4",
         type: "inequalitiesOneStep",
       },
       {
         questionText: "Solve the inequality for y: y - 5 ≤ -1.",
-        answer: "y ≤ 4",
+        answer: "y≤4",
         answerExplanation: "y ≤ -1 + 5, y ≤ 4",
         type: "inequalitiesOneStep",
       },
@@ -91,13 +91,13 @@ export const quizData = [
     questions: [
       {
         questionText: "Solve for x: 2x + 4 ≤ 10.",
-        answer: "x ≤ 3",
+        answer: "x≤3",
         answerExplanation: "2x ≤ 10 - 4 = 6<br>x ≤ \\frac{6}{2} = 3",
         type: "inequalitiesTwoStep",
       },
       {
         questionText: "Solve for m: 3m - 2 > 4.",
-        answer: "m > 2",
+        answer: "m>2",
         answerExplanation: "3m > 4 + 2 = 6<br>m > \\frac{6}{3} = 2",
         type: "inequalitiesTwoStep",
       },

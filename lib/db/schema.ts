@@ -25,6 +25,7 @@ export const user = pgTable("user", {
   evaluation: text("evaluation"),
   quizCompleted: boolean("quiz_completed").notNull().default(false),
   quizScore: integer("quiz_score"),
+  quizResults: jsonb<any>("quiz_results"),
 });
 
 export const session = pgTable("session", {

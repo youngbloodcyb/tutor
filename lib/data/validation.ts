@@ -51,4 +51,10 @@ export const createAICourseSchema = z.object({
 
 export const saveQuizStatusSchema = z.object({
   score: z.number(),
+  results: z.array(
+    z.object({
+      section: z.string(),
+      score: z.number(),
+    })
+  ),
 });
