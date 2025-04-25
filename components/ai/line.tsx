@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
 
 export function LineVisualizer({
   initialSlope = 1,
@@ -44,19 +43,25 @@ export function LineVisualizer({
     const scale = 20;
 
     return (
-      <div className="relative w-[400px] h-[400px] border border-gray-300 bg-white overflow-hidden">
+      <div className="relative w-[325px] h-[325px] border border-gray-300 bg-white overflow-hidden">
         {/* Grid lines */}
         {Array.from({ length: 20 }).map((_, i) => (
           <React.Fragment key={i}>
-            <div className="absolute w-full h-px bg-gray-100" style={{ top: `${i * 20}px` }} />
-            <div className="absolute h-full w-px bg-gray-100" style={{ left: `${i * 20}px` }} />
+            <div
+              className="absolute w-full h-px bg-gray-100"
+              style={{ top: `${i * 20}px` }}
+            />
+            <div
+              className="absolute h-full w-px bg-gray-100"
+              style={{ left: `${i * 20}px` }}
+            />
           </React.Fragment>
         ))}
-        
+
         {/* X and Y axes */}
         <div className="absolute w-full h-px bg-gray-300 top-1/2" />
         <div className="absolute h-full w-px bg-gray-300 left-1/2" />
-        
+
         {/* Line */}
         <div
           className="absolute h-1 bg-blue-500 z-10"
@@ -64,7 +69,7 @@ export function LineVisualizer({
             width: `${canvasSize * 2}px`,
             transform: `rotate(${-Math.atan(slope) * (180 / Math.PI)}deg)`,
             top: `${center - yIntercept * scale}px`,
-            left: `-${canvasSize/2}px`,
+            left: `-${canvasSize / 2}px`,
           }}
         />
       </div>
@@ -73,7 +78,7 @@ export function LineVisualizer({
 
   const getEquation = () => {
     let equation = "y = ";
-    
+
     // Handle slope
     if (slope === 0) {
       equation += "0";
@@ -84,14 +89,14 @@ export function LineVisualizer({
     } else {
       equation += `${slope}x`;
     }
-    
+
     // Handle y-intercept
     if (yIntercept > 0) {
       equation += ` + ${yIntercept}`;
     } else if (yIntercept < 0) {
       equation += ` - ${Math.abs(yIntercept)}`;
     }
-    
+
     return equation;
   };
 
@@ -100,7 +105,8 @@ export function LineVisualizer({
       <CardHeader>
         <CardTitle>Line Equation Visualizer</CardTitle>
         <CardDescription>
-          Enter a slope (m) and y-intercept (b) to visualize the line equation y = mx + b
+          Enter a slope (m) and y-intercept (b) to visualize the line equation y
+          = mx + b
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -142,8 +148,8 @@ export function LineVisualizer({
           <Label>Equation: {getEquation()}</Label>
           <div className="text-sm text-black">
             • Slope (m): {slope} (rise/run)
-            <br />
-            • Y-Intercept (b): {yIntercept} (where the line crosses the y-axis)
+            <br />• Y-Intercept (b): {yIntercept} (where the line crosses the
+            y-axis)
           </div>
         </div>
       </CardContent>
