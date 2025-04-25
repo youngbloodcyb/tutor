@@ -54,9 +54,43 @@ export const lineTool = createTool({
   },
 });
 
+export const decimalTool = createTool({
+  description: "Display a decimal number",
+  parameters: z.object({
+    decimal: z.number().describe("The decimal number to display"),
+  }),
+  execute: async function ({ decimal }) {
+    return { initialDecimal: decimal };
+  },
+});
+
+export const integerTool = createTool({
+  description: "Display an integer number",
+  parameters: z.object({
+    integer: z.number().describe("The integer number to display"),
+  }),
+  execute: async function ({ integer }) {
+    return { initialInteger: integer };
+  },
+});
+
+export const pythagoreanTool = createTool({
+  description: "Display the Pythagorean theorem",
+  parameters: z.object({
+    a: z.number().describe("The length of one leg of the triangle"),
+    b: z.number().describe("The length of the other leg of the triangle"),
+  }),
+  execute: async function ({ a, b }) {
+    return { initialA: a, initialB: b };
+  },
+});
+
 export const tools = {
   displayWeather: weatherTool,
   displayFraction: fractionTool,
   getInformation: getInformationTool,
   displayLine: lineTool,
+  displayDecimal: decimalTool,
+  displayInteger: integerTool,
+  displayPythagorean: pythagoreanTool,
 };

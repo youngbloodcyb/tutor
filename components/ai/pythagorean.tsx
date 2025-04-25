@@ -49,7 +49,7 @@ export function PythagoreanVisualizer({
     // Find the maximum side length to determine scaling
     const maxSide = Math.max(a, b);
     const scaleFactor = (maxSize - padding * 2) / (maxSide * scale);
-    
+
     const scaledA = a * scale * scaleFactor;
     const scaledB = b * scale * scaleFactor;
 
@@ -60,7 +60,7 @@ export function PythagoreanVisualizer({
           className="absolute bg-blue-500"
           style={{
             width: `${scaledA}px`,
-            height: '6px',
+            height: "6px",
             top: `${padding + scaledB}px`,
             left: `${padding}px`,
           }}
@@ -69,7 +69,7 @@ export function PythagoreanVisualizer({
         <div
           className="absolute bg-blue-500"
           style={{
-            width: '6px',
+            width: "6px",
             height: `${scaledB}px`,
             top: `${padding}px`,
             left: `${padding}px`,
@@ -80,25 +80,41 @@ export function PythagoreanVisualizer({
           className="absolute bg-blue-500"
           style={{
             width: `${Math.sqrt(scaledA * scaledA + scaledB * scaledB)}px`,
-            height: '6px',
-            transform: `rotate(${Math.atan2(scaledB, scaledA) * (180 / Math.PI)}deg)`,
-            transformOrigin: '0 0',
+            height: "6px",
+            transform: `rotate(${
+              Math.atan2(scaledB, scaledA) * (180 / Math.PI)
+            }deg)`,
+            transformOrigin: "0 0",
             top: `${padding}px`,
             left: `${padding}px`,
           }}
         />
         {/* Labels */}
-        <div className="absolute font-bold" style={{ top: `${padding + scaledB/2}px`, left: '-30px' }}>
+        <div
+          className="absolute font-bold"
+          style={{ top: `${padding + scaledB / 2}px`, left: "-30px" }}
+        >
           a = {a.toFixed(2)}
         </div>
-        <div className="absolute font-bold" style={{ left: `${padding + scaledA/2}px`, top: `${padding + scaledB + 20}px` }}>
+        <div
+          className="absolute font-bold"
+          style={{
+            left: `${padding + scaledA / 2}px`,
+            top: `${padding + scaledB + 20}px`,
+          }}
+        >
           b = {b.toFixed(2)}
         </div>
-        <div className="absolute font-bold" style={{ 
-          left: `${padding + scaledA/2 + 20}px`, 
-          top: `${padding + scaledB/2 - 10}px`,
-          transform: `rotate(${Math.atan2(scaledB, scaledA) * (180 / Math.PI)}deg)`
-        }}>
+        <div
+          className="absolute font-bold"
+          style={{
+            left: `${padding + scaledA / 2 + 20}px`,
+            top: `${padding + scaledB / 2 - 10}px`,
+            transform: `rotate(${
+              Math.atan2(scaledB, scaledA) * (180 / Math.PI)
+            }deg)`,
+          }}
+        >
           c = {hypotenuse.toFixed(2)}
         </div>
       </div>
@@ -147,15 +163,14 @@ export function PythagoreanVisualizer({
             <br />
             {a.toFixed(2)}² + {b.toFixed(2)}² = {hypotenuse.toFixed(2)}²
             <br />
-            {(a * a).toFixed(2)} + {(b * b).toFixed(2)} = {(hypotenuse * hypotenuse).toFixed(2)}
+            {(a * a).toFixed(2)} + {(b * b).toFixed(2)} ={" "}
+            {(hypotenuse * hypotenuse).toFixed(2)}
           </div>
         </div>
 
         <div className="space-y-2">
           <Label>Triangle Visualization</Label>
-          <div className="flex justify-center">
-            {renderTriangle()}
-          </div>
+          <div className="flex justify-center">{renderTriangle()}</div>
         </div>
 
         <div className="space-y-2">
@@ -176,4 +191,3 @@ export function PythagoreanVisualizer({
     </Card>
   );
 }
-
