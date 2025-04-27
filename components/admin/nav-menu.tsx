@@ -23,6 +23,10 @@ const navItems = [
     title: "Courses",
     href: "/admin/courses",
   },
+  {
+    title: "Resources",
+    href: "/admin/resources",
+  },
 ];
 
 export async function NavMenu() {
